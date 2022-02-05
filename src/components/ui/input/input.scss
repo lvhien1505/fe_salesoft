@@ -1,0 +1,18 @@
+@import 'sass/colors';
+
+.input--format {
+	border-radius: 0 !important;
+	border-bottom: 1px solid $color-border !important;
+}
+
+// .ant-input-affix-wrapper-focused,
+// .input--format:focus {
+// 	border-bottom: 1px solid $color-green--dark !important;
+// }
+.input--format:focus {
+	border-bottom: 1px solid $color-green--dark !important;
+}
+
+.input-number--format {
+	text-align: right;
+}

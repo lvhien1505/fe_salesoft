@@ -1,0 +1,39 @@
+{
+	"products": [
+		{
+			"_id": 1,
+			"name": "Thuốc 1",
+			"price": 10000
+		},
+		{
+			"_id": 2,
+			"name": "Thuốc 2",
+			"price": 20000
+		},
+		{
+			"_id": 3,
+			"name": "Thuốc 3",
+			"price": 30000
+		},
+		{
+			"_id": 4,
+			"name": "Thuốc 4",
+			"price": 40000
+		},
+		{
+			"_id": 5,
+			"name": "Thuốc 5",
+			"price": 50000
+		},
+		{
+			"_id": 6,
+			"name": "Thuốc 6",
+			"price": 60000
+		},
+		{
+			"_id": 7,
+			"name": "Thuốc 7",
+			"price": 70000
+		}
+	]
+}

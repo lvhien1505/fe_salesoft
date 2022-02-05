@@ -1,0 +1,44 @@
+.card {
+	padding: 0.5rem 0.75rem;
+	border-radius: 0.25rem;
+	opacity: 0.85;
+	box-shadow: 0 0.46875rem 2.1875rem rgba(31, 10, 6, 0.03),
+		0 0.9375rem 1.40625rem rgba(31, 10, 6, 0.03),
+		0 0.25rem 0.53125rem rgba(31, 10, 6, 0.05),
+		0 0.125rem 0.1875rem rgba(31, 10, 6, 0.03);
+
+	h2,
+	h4,
+	h5 {
+		color: #fff;
+	}
+
+	h2 {
+		margin: 0;
+		font-weight: 700;
+	}
+
+	h4 {
+		font-weight: 600;
+	}
+}
+
+.card-sales {
+	border: 1px solid #237fcd;
+	background-color: #237fcd;
+}
+
+.card-returns {
+	border: 1px solid #ff8030;
+	background-color: #ff8030;
+}
+
+.card-growth--up {
+	border: 1px solid #4bac4d;
+	background-color: #4bac4d;
+}
+
+.card-growth--down {
+	border: 1px solid #da624a;
+	background-color: #da624a;
+}

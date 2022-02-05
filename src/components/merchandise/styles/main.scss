@@ -1,0 +1,8 @@
+@import 'sass/mixins';
+@import 'sass/colors';
+@include tableCustom();
+
+h3 {
+	margin-bottom: 0;
+}
+

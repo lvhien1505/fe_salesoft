@@ -1,0 +1,70 @@
+@import 'sass/colors';
+
+.screen-product {
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	display: flex;
+	justify-content: flex-end;
+
+	.resizable--custom {
+		height: 6.25rem;
+		width: 1.5rem;
+		background-color: $color-blue;
+
+		cursor: ew-resize;
+		border: 2px solid $color-blue;
+		border-radius: 8px;
+		text-align: center;
+		z-index: 10;
+		overflow: hidden;
+		display: -webkit-box;
+		display: flex;
+		-webkit-box-align: center;
+		align-items: center;
+
+		span {
+			display: inline-block;
+			overflow: hidden;
+			font-size: 12px;
+			font-weight: bold;
+			font-family: sans-serif;
+			letter-spacing: 1px;
+			color: #fff;
+		}
+
+		span::after{
+			content: '. . . . . .';
+		}
+	}
+
+	.product {
+		width: 13rem;
+		padding: 0.5rem 0.25rem;
+
+		&__info {
+			height: 100%;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			padding: 0 0 0 0.5rem;
+
+			span {
+				font-size: 0.875rem;
+			}
+
+			span:last-child {
+				font-weight: 600;
+				color: $color-green;
+			}
+		}
+	}
+
+	.product:hover {
+		cursor: pointer;
+		background-color: rgba(191, 191, 191, 0.3);
+		border-radius: 0.25rem;
+	}
+}

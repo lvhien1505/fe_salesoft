@@ -1,0 +1,1 @@
+export const CHANGE_KEY_OF_COLS = 'CHANGE_KEY_OF_COLS';

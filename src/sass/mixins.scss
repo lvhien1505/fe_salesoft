@@ -1,0 +1,8 @@
+@mixin tableCustom() {
+	.ant-table {
+		thead th {
+			background-color: #8bd4f2 !important;
+			font-weight: 600 !important;
+		}
+	}
+}

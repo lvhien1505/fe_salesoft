@@ -1,0 +1,61 @@
+@import 'sass/colors';
+
+.btn--format {
+	color: #fff !important;
+	display: flex !important;
+	justify-content: center !important;
+	align-items: center !important;
+
+	i {
+		margin-right: 0.25rem;
+		color: #fff !important;
+		font-size: 1.125rem;
+	}
+
+	i.ri-arrow-down-s-fill {
+		margin-right: 0;
+	}
+}
+
+.btn--format:hover {
+	color: #fff !important;
+}
+
+.btn__primary--format {
+	background-color: $color-green !important;
+	border-color: $color-green !important;
+}
+
+.btn__primary--format:hover {
+	background-color: $color-green--dark !important;
+	border-color: $color-green--dark !important;
+}
+
+.btn__secondary--format {
+	background-color: $color-blue !important;
+	border-color: $color-blue !important;
+}
+
+.btn__secondary--format:hover {
+	background-color: $color-blue--dark !important;
+	border-color: $color-blue--dark !important;
+}
+
+.btn__danger--format {
+	background-color: $color-red !important;
+	border-color: $color-red !important;
+}
+
+.btn__danger--format:hover {
+	background-color: $color-red--dark !important;
+	border-color: $color-red--dark !important;
+}
+
+.btn__default--format {
+	background-color: #fff !important;
+	border:0 !important;
+	box-shadow:none !important;
+	i,span {
+		color: #7b6e6e !important;
+	}
+}

@@ -1,0 +1,50 @@
+@import 'sass/colors';
+
+.dropdown-search {
+	position: relative;
+
+	.icon-left,
+	.icon-right {
+		position: absolute;
+		top: 0.25rem;
+		z-index: 10;
+	}
+
+	.icon-left {
+		left: 0.5rem;
+		color: #bfbfbf;
+	}
+
+	.icon-right {
+		right: 0.5rem;
+		width: 1.5rem;
+		height: 1.5rem;
+		border-radius: 50%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		i {
+			font-size: 1.25rem;
+		}
+	}
+
+	.icon-right:hover {
+		cursor: pointer;
+		background-color: $color-border;
+	}
+
+	.dropdown {
+		position: absolute;
+		top: calc(2rem + 1px);
+		width: 100%;
+		background-color: #fff;
+		z-index: 10;
+		border: 1px solid #bfbfbf;
+		border-top: 0;
+		padding: 0.75rem 1rem;
+		box-shadow: 0 0.46875rem 2.1875rem rgba(31, 10, 6, 0.03),
+			0 0.9375rem 1.40625rem rgba(31, 10, 6, 0.03),
+			0 0.25rem 0.53125rem rgba(31, 10, 6, 0.05),
+			0 0.125rem 0.1875rem rgba(31, 10, 6, 0.03);
+	}
+}

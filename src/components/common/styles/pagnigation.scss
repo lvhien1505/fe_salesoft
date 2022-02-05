@@ -1,0 +1,16 @@
+.page-number {
+	height: 2rem;
+	width: 2rem;
+	position: relative;
+
+	.input-number--format {
+		text-align: center;
+		border: 1px solid #d9d9d9 !important;
+		height: 2rem;
+		width: 2rem;
+	}
+
+	.input-number--format:focus{
+		border-color:#40a9ff !important;
+	}
+}

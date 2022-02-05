@@ -1,0 +1,10 @@
+@import 'sass/colors';
+
+.ant-select{
+	border-radius: 0 !important;
+	border-bottom: 1px solid #bfbfbf !important;
+}
+
+.ant-select-focused {
+	border-bottom: 1px solid $color-green--dark !important;
+}

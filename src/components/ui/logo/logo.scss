@@ -1,0 +1,15 @@
+@import 'sass/colors';
+
+.logo-salesoft {
+	span {
+		font-size: 1.5rem;
+		font-weight: 1000;
+	}
+
+	span:first-child {
+		color: $color-blue;
+	}
+	span:last-child {
+		color: $color-green;
+	}
+}
