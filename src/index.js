@@ -6,6 +6,7 @@ import 'antd/dist/antd.css';
 import 'remixicon/fonts/remixicon.css';
 import 'index.scss';
 import 'react-quill/dist/quill.snow.css';
+import "react-datepicker/dist/react-datepicker.css";
 
 ReactDOM.render(
     <React.StrictMode>

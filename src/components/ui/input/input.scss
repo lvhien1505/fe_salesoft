@@ -16,3 +16,16 @@
 .input-number--format {
 	text-align: right;
 }
+
+.textarea--format{
+	position: relative;
+	.icon{
+		position: absolute;
+		top: 0;
+		left: 0;
+		color: #999;
+	}
+	.input--format{
+		padding-left: 1.25rem;
+	}
+}

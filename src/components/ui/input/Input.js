@@ -1,14 +1,15 @@
 import { Input } from 'antd';
 import InputNumberFormat from 'react-currency-format';
+import Icon from 'components/ui/icon/Icon';
 import './input.scss';
 
 const InputString = ({ size, ...rest }) => {
     return (
         <Input
-            {...rest}
             bordered={false}
             size={size || 'large'}
             className="input--format"
+            {...rest}
         />
     );
 };
@@ -16,10 +17,10 @@ const InputString = ({ size, ...rest }) => {
 const InputPassword = ({ size, ...rest }) => {
     return (
         <Input.Password
-            {...rest}
             bordered={false}
             size={size || 'large'}
             className="input--format"
+            {...rest}
         />
     );
 };
@@ -34,4 +35,21 @@ const InputNumber = ({ ...rest }) => {
     );
 };
 
-export { InputString, InputPassword, InputNumber };
+const InputTextArea = ({ size, ...rest }) => {
+    return (
+        <div className="textarea--format">
+            <div className='icon'>
+                <Icon className="ri-pencil-fill"/>
+            </div>
+            <Input.TextArea
+                bordered={false}
+                size={size || 'large'}
+                autoSize={{ minRows: 1, maxRows: 5 }}
+                className="input--format"
+                {...rest}
+            />
+        </div>
+    );
+};
+
+export { InputString, InputPassword, InputNumber, InputTextArea };

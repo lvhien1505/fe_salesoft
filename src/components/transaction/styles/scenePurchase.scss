@@ -1,0 +1,52 @@
+@import 'sass/colors';
+
+.scene-start {
+    height: calc(100vh - 4rem - 3.6rem - 1.25rem - 1rem) !important;
+    margin: 0 !important;
+    background-color: #fff;
+    border: 1px solid $color-border;
+    border-radius: 0.36rem;
+
+    &__left {
+        height: 100%;
+        overflow-y: auto;
+        border-right: 4px solid $color-border;
+        padding: 0.5rem;
+        border-top-left-radius: 0.36rem;
+        border-bottom-left-radius: 0.36rem;
+
+        .btn-redirect {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: none;
+            border-radius: 50%;
+
+            .ri-arrow-left-line {
+                font-weight: 1000;
+                font-size: 1.125rem;
+            }
+        }
+    }
+
+    &__right {
+        height: 100%;
+        overflow-y: auto;
+        background-color: #fff;
+        border-left: 4px solid $color-border;
+        padding:0.5rem 0.75rem;
+        border-top-right-radius: 0.36rem;
+        border-bottom-right-radius: 0.36rem;
+
+        .stock-takes__history{
+            .title{
+                background-color: $color-blue;
+                padding:0.25rem 0.5rem;
+                span{
+                    color: #fff;
+                    font-size: 0.875rem;
+                }
+            }
+        }
+    }
+}

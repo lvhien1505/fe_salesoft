@@ -7,11 +7,11 @@ import '../styles/main.scss';
 
 const Content = () => {
 	return (
-		<Row gutter={[8, 4]}>
+		<Row gutter={[8, 8]}>
 			<Col span={24}>
 				<Row gutter={[20, 8]}>
 					<Col span={6}>
-						<h3 style={{ fontWeight: '600' }}>Hàng hóa</h3>
+						<h3 style={{ fontWeight: '600' }}>Hóa đơn</h3>
 					</Col>
 					<Col span={18}>
 						<Row justify="space-between" gutter={[0,8]}>

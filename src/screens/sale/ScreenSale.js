@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
-import ScreenSelectProduct from 'components/sale/screen-manage-product';
-import Tabs from 'components/sale/tabs-sale';
+import ScreenProduct from 'components/sale/screen-product';
+import Tabs from 'components/sale/tabs';
 import SaleState from 'contexts/SaleState';
 
 import LayoutSale from 'components/layout/LayoutSale';
@@ -14,7 +14,7 @@ const Sale = () => {
 					<div
 						style={{ position: 'absolute', top: 0, right: '2rem' }}
 					>
-						<ScreenSelectProduct />
+						<ScreenProduct />
 					</div>
 				</SaleState>
 			</div>

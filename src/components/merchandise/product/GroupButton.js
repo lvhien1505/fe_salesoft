@@ -8,7 +8,7 @@ import { colsProduct } from 'constants/columns';
 
 const GroupButton = () => {
     return (
-        <Space>
+        <Space className="btn--group">
             <BtnActiveModalProduct
                 text="Hàng hóa"
                 iconClassName="ri-add-line"
@@ -17,7 +17,7 @@ const GroupButton = () => {
                 text="Xuất file"
                 icon={<Icon className="ri-file-transfer-fill" />}
             />
-            <DropdownSelectCol data={colsProduct} width={25}/>
+            <DropdownSelectCol data={colsProduct} width={25} />
         </Space>
     );
 };

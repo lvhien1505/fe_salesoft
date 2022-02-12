@@ -1,39 +1,228 @@
 {
-	"products": [
-		{
-			"_id": 1,
-			"name": "Thuốc 1",
-			"price": 10000
-		},
-		{
-			"_id": 2,
-			"name": "Thuốc 2",
-			"price": 20000
-		},
-		{
-			"_id": 3,
-			"name": "Thuốc 3",
-			"price": 30000
-		},
-		{
-			"_id": 4,
-			"name": "Thuốc 4",
-			"price": 40000
-		},
-		{
-			"_id": 5,
-			"name": "Thuốc 5",
-			"price": 50000
-		},
-		{
-			"_id": 6,
-			"name": "Thuốc 6",
-			"price": 60000
-		},
-		{
-			"_id": 7,
-			"name": "Thuốc 7",
-			"price": 70000
-		}
-	]
+    "products": [
+        {
+            "_id": 1,
+            "name": "Thuốc 1",
+            "price": 10000
+        },
+        {
+            "_id": 2,
+            "name": "Thuốc 2",
+            "price": 20000
+        },
+        {
+            "_id": 3,
+            "name": "Thuốc 3",
+            "price": 30000
+        },
+        {
+            "_id": 4,
+            "name": "Thuốc 4",
+            "price": 40000
+        },
+        {
+            "_id": 5,
+            "name": "Thuốc 5",
+            "price": 50000
+        },
+        {
+            "_id": 6,
+            "name": "Thuốc 6",
+            "price": 60000
+        },
+        {
+            "_id": 7,
+            "name": "Thuốc 7",
+            "price": 70000
+        },
+        {
+            "_id": 8,
+            "name": "Thuốc 8",
+            "price": 70000
+        },
+        {
+            "_id": 9,
+            "name": "Thuốc 9",
+            "price": 70000
+        },
+        {
+            "_id": 10,
+            "name": "Thuốc 10",
+            "price": 70000
+        },
+        {
+            "_id": 11,
+            "name": "Thuốc 11",
+            "price": 70000
+        }
+    ],
+    "productsStockTakes": [
+        {
+            "_id": 1,
+            "code":"HD000001",
+            "name": "Thuốc 1",
+            "inventory":80,
+            "costPrice": 10000
+        },
+        {
+            "_id": 2,
+            "code":"HD000002",
+            "name": "Thuốc 2",
+            "inventory":90,
+            "costPrice": 20000
+        },
+        {
+            "_id": 3,
+            "code":"HD000003",
+            "name": "Thuốc 3",
+            "inventory":100,
+            "costPrice": 30000
+        },
+        {
+            "_id": 4,
+            "code":"HD000004",
+            "name": "Thuốc 4",
+            "inventory":110,
+            "costPrice": 40000
+        },
+        {
+            "_id": 5,
+            "code":"HD000005",
+            "name": "Thuốc 5",
+            "inventory":120,
+            "costPrice": 50000
+        },
+        {
+            "_id": 6,
+            "code":"HD000006",
+            "name": "Thuốc 6",
+            "inventory":130,
+            "costPrice": 60000
+        },
+        {
+            "_id": 7,
+            "code":"HD000007",
+            "name": "Thuốc 7",
+            "inventory":140,
+            "costPrice": 70000
+        },
+        {
+            "_id": 8,
+            "code":"HD000008",
+            "name": "Thuốc 8",
+            "inventory":150,
+            "costPrice": 70000
+        },
+        {
+            "_id": 9,
+            "code":"HD000009",
+            "name": "Thuốc 9",
+            "inventory":160,
+            "costPrice": 70000
+        },
+        {
+            "_id": 10,
+            "code":"HD000010",
+            "name": "Thuốc 10",
+            "inventory":170,
+            "costPrice": 70000
+        },
+        {
+            "_id": 11,
+            "code":"HD000011",
+            "name": "Thuốc 11",
+            "inventory":180,
+            "costPrice": 70000
+        }
+    ],
+    "invoicesReturns":[
+        {
+            "_id": 1,
+            "code":"HD000001",
+            "dateSell":"10-02-2022",
+            "nameCustomer": "Le Van Hien",
+            "phone":"0789808970",
+            "totalPayment": 10000
+        },
+        {
+            "_id": 1,
+            "code":"HD000001",
+            "dateSell":"10-02-2022",
+            "nameCustomer": "Le Van Hien",
+            "phone":"0789808970",
+            "totalPayment": 20000
+        },
+        {
+            "_id": 3,
+            "code":"HD000003",
+            "dateSell":"10-02-2022",
+            "nameCustomer": "Le Van Hien",
+            "phone":"0789808970",
+            "totalPayment": 30000
+        },
+        {
+            "_id": 4,
+            "code":"HD000004",
+            "dateSell":"10-02-2022",
+            "nameCustomer": "Le Van Hien",
+            "phone":"0789808970",
+            "totalPayment": 40000
+        },
+        {
+            "_id": 5,
+            "code":"HD000005",
+            "dateSell":"10-02-2022",
+            "nameCustomer": "Le Van Hien",
+            "phone":"0789808970",
+            "totalPayment": 50000
+        },
+        {
+            "_id": 6,
+            "code":"HD000006",
+            "dateSell":"10-02-2022",
+            "nameCustomer": "Le Van Hien",
+            "phone":"0789808970",
+            "totalPayment": 60000
+        },
+        {
+            "_id": 7,
+            "code":"HD000007",
+            "dateSell":"10-02-2022",
+            "nameCustomer": "Le Van Hien",
+            "phone":"0789808970",
+            "totalPayment": 70000
+        },
+        {
+            "_id": 8,
+            "code":"HD000008",
+            "dateSell":"10-02-2022",
+            "nameCustomer": "Le Van Hien",
+            "phone":"0789808970",
+            "totalPayment": 70000
+        },
+        {
+            "_id": 9,
+            "code":"HD000009",
+            "dateSell":"10-02-2022",
+            "nameCustomer": "Le Van Hien",
+            "phone":"0789808970",
+            "totalPayment": 70000
+        },
+        {
+            "_id": 10,
+            "code":"HD000010",
+            "dateSell":"10-02-2022",
+            "nameCustomer": "Le Van Hien",
+            "phone":"0789808970",
+            "totalPayment": 70000
+        },
+        {
+            "_id": 11,
+            "code":"HD000011",
+            "dateSell":"10-02-2022",
+            "nameCustomer": "Le Van Hien",
+            "phone":"0789808970",
+            "totalPayment": 70000
+        }
+    ]
 }

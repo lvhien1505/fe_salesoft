@@ -21,15 +21,40 @@ const Header = ({ type }) => {
             >
                 <ul>
                     {type === 'manage' ? (
-                        <li onClick={() => redirectPage('/sale')}>
+                        <li
+                            onClick={() => redirectPage('/sale')}
+                            title="Bán hàng"
+                        >
                             <Icon className="ri-shopping-basket-2-line" />
                         </li>
                     ) : (
-                        <li onClick={() => redirectPage('/')}>
-                            <Icon className="ri-store-line" />
-                        </li>
+                        <>
+                            {type === 'sale' ? (
+                                <li
+                                    onClick={() =>
+                                        redirectPage('/returns/scene')
+                                    }
+                                    title="Trả hàng"
+                                >
+                                    <Icon className="ri-reply-all-fill" />
+                                </li>
+                            ) : (
+                                <li
+                                    onClick={() => redirectPage('/sale')}
+                                    title="Bán hàng"
+                                >
+                                    <Icon className="ri-shopping-basket-2-line" />
+                                </li>
+                            )}
+                            <li
+                                onClick={() => redirectPage('/invoices')}
+                                title="Quản lý"
+                            >
+                                <Icon className="ri-layout-grid-fill" />
+                            </li>
+                        </>
                     )}
-                    <li>
+                    <li title="Thông báo">
                         <Icon className="ri-notification-2-line" />
                     </li>
                     <li className="user-information">

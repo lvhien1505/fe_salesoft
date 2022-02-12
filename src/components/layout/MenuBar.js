@@ -22,14 +22,14 @@ const MenuBar = ({nameSelected,namePage}) => {
 					path: '/products',
 				},
 				{
-					name: 'price',
+					name: 'pricebook',
 					label: 'Thiết lập giá',
-					path: '/prices',
+					path: '/pricebook',
 				},
 				{
-					name: 'stockTake',
+					name: 'stockTakes',
 					label: 'Kiểm kho',
-					path: '/stock-take',
+					path: '/stock-takes',
 				},
 			],
 		},
@@ -62,7 +62,7 @@ const MenuBar = ({nameSelected,namePage}) => {
 					path: '/purchase',
 				},
 				{
-					name: 'purchaseReturn',
+					name: 'returnsPurchase',
 					label: 'Trả hàng nhập',
 					path: '/returns-purchase',
 				},

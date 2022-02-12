@@ -3,20 +3,20 @@ import { Space } from 'antd';
 import ButtonCustom from 'components/ui/button/Button';
 import Icon from 'components/ui/icon/Icon';
 import DropdownSelectCol from 'components/common/manage/DropdownSelectCol';
-import { colsProduct } from 'constants/columns';
+import { colsInvoices } from 'constants/columns';
 
 const GroupButton = () => {
     return (
-        <Space>
+        <Space className="btn--group">
             <ButtonCustom
                 text="Thêm hóa đơn"
-                iconClassName="ri-add-line"
+                icon={<Icon className="ri-add-fill" />}
             />
             <ButtonCustom
                 text="Xuất file"
                 icon={<Icon className="ri-file-transfer-fill" />}
             />
-            <DropdownSelectCol data={colsProduct} width={25}/>
+            <DropdownSelectCol data={colsInvoices} width={25}/>
         </Space>
     );
 };

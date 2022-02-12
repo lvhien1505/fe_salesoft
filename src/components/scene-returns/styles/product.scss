@@ -1,0 +1,31 @@
+.wrapper-input-total-number {
+	position: relative;
+	padding:0 0.75rem;
+
+	.btn-left-down,
+	.btn-right-up {
+		width: 1.675rem;
+		height: 1.675rem;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		position: absolute;
+		top: 0.5rem;
+		visibility: hidden;
+	}
+
+	.btn-left-down{
+		left: -1rem;
+	}
+
+	.btn-right-up{
+		right: -1rem;
+	}
+}
+
+.wrapper-input-total-number:hover{
+	.btn-left-down,
+	.btn-right-up{
+		visibility: visible;
+	}
+}

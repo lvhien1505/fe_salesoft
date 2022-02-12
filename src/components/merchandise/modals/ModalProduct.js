@@ -93,10 +93,10 @@ const ModalProduct = ({ type, visible, onCancel, ...rest }) => {
 			title={type === 'add' ? 'Thêm hàng hóa' : 'Cập nhật'}
 			visible={visible}
 			onCancel={onCancel}
-			{...rest}
 			footer={null}
 			width={900}
 			centered
+			{...rest}
 		>
 			<Form form={formProduct} onFinish={onFinishForm}>
 				<Tabs centered style={styles}>
@@ -256,7 +256,5 @@ const BtnActiveModalProduct = ({ text, iconClassName, type, ...rest }) => {
 		</>
 	);
 };
-
-export { ModalProduct };
 
 export default BtnActiveModalProduct;

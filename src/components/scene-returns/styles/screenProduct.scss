@@ -1,0 +1,11 @@
+@import 'sass/colors';
+
+.sale-screen-product{
+    .btn__default--format:hover{
+        background-color: $color-blue--dark !important;
+        i{
+            color: #fff !important;
+        }
+    }
+    
+}

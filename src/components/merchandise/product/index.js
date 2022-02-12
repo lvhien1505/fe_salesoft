@@ -7,7 +7,7 @@ import '../styles/main.scss';
 
 const Content = () => {
 	return (
-		<Row gutter={[8, 4]}>
+		<Row gutter={[8, 8]}>
 			<Col span={24}>
 				<Row gutter={[20, 8]}>
 					<Col span={6}>

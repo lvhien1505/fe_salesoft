@@ -1,0 +1,4 @@
+export const ADD_PRODUCT = 'ADD_PRODUCT';
+export const REMOVE_PRODUCT = 'REMOVE_PRODUCT';
+export const CHANGE_NUM_REAL = 'CHANGE_NUM_REAL';
+export const CHANGE_TYPE_SHOW = 'CHANGE_TYPE_SHOW';

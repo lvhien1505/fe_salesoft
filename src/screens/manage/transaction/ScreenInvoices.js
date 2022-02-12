@@ -1,13 +1,13 @@
 import Layout from 'components/layout/Layout';
 import Content from 'components/transaction/invoices';
 import MangeState from 'contexts/ManageState';
-import { colsProduct } from 'constants/columns';
-import { keyOfColsProduct } from 'constants/defaultKeyOfCols';
+import { colsInvoices } from 'constants/columns';
+import { keyOfColsInvoices } from 'constants/defaultKeyOfCols';
 
 const Invoices = () => {
 	return (
 		<Layout namePage="invoices" nameSelected="transaction">
-			<MangeState inititalCols={colsProduct} keyOfCols={keyOfColsProduct}>
+			<MangeState inititalCols={colsInvoices} keyOfCols={keyOfColsInvoices}>
 				<Content />
 			</MangeState>
 		</Layout>

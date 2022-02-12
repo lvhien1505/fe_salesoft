@@ -70,7 +70,6 @@ const MenuHome = ({nameSelected}) => {
 
 	return (
 		<>
-		{console.log('render')}
 			<div className="navmenu__content" onClick={toggleMenu}>
 				<Icon
 					className={
