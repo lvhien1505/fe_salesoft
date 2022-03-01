@@ -22,7 +22,7 @@ const MenuHome = ({nameSelected}) => {
 	const listMenuItem = [
 		{
 			label: 'Tổng quan',
-			path: '/',
+			path: '/overview',
 			iconClassName: 'ri-eye-line',
 			nameSelected: 'overview',
 		},

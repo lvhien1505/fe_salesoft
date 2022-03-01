@@ -1,208 +1,184 @@
 import { useContext } from 'react';
-import { Row, Col, Button, Space, Popover } from 'antd';
+import { Row, Col, Button, Popover, Space } from 'antd';
 import Icon from 'components/ui/icon/Icon';
 import { InputNumber } from 'components/ui/input/Input';
 import TextPrice from 'components/common/TextPrice';
 import PropTypes from 'prop-types';
-import SaleContext from 'contexts/createContext/SaleContext';
+import SceneReturnsContext from 'contexts/createContext/SceneReturnsContext';
 
 import '../styles/product.scss';
 
-const InputTotalNumber = ({ productIndex, value }) => {
-	const state = useContext(SaleContext);
-	const { changeTotalNum } = state;
+const InputTotalNumberReturns = ({ productID, value, limit }) => {
+    const { changeTotalNumReturns } = useContext(SceneReturnsContext);
 
-	const onHandleChangeTotalNum = (type, valueInput) => {
-		let newValue = value;
-		switch (type) {
-			case 'desc':
-				if (newValue === 1) {
-					return;
-				} else {
-					newValue = newValue - 1;
-					return changeTotalNum(productIndex, newValue);
-				}
+    const onHandleChangeTotalNumReturns = (type, valueInput) => {
+        let newValue = value;
+        switch (type) {
+            case 'desc':
+                if (newValue === 0) {
+                    return;
+                } else {
+                    newValue = newValue - 1;
+                    return changeTotalNumReturns(productID, newValue);
+                }
 
-			case 'input':
-				if (valueInput <= 0 || isNaN(valueInput)) {
-					return changeTotalNum(productIndex, 1);
-				}
+            case 'input':
+                if (valueInput <= 0 || isNaN(valueInput)) {
+                    return changeTotalNumReturns(productID, 0);
+                }
 
-				return changeTotalNum(productIndex, valueInput);
-			case 'incr':
-				newValue = newValue + 1;
-				return changeTotalNum(productIndex, newValue);
-			default:
-				break;
-		}
-	};
-	return (
-		<div className="wrapper-input-total-number">
-			<Button
-				icon={<Icon className="ri-arrow-down-s-line" />}
-				className="btn-left-down"
-				onClick={() => onHandleChangeTotalNum('desc')}
-			/>
-			<InputNumber
-				style={{ textAlign: 'center' }}
-				value={value || 0}
-				onValueChange={(values) =>
-					onHandleChangeTotalNum('input', values.floatValue)
-				}
-			/>
-			<Button
-				icon={<Icon className="ri-arrow-up-s-line" />}
-				className="btn-right-up"
-				onClick={() => onHandleChangeTotalNum('incr')}
-			/>
-		</div>
-	);
+                if (valueInput > limit || isNaN(valueInput)) {
+                    return changeTotalNumReturns(productID, limit);
+                }
+                return changeTotalNumReturns(productID, valueInput);
+            case 'incr':
+                if (newValue === limit) {
+                    return;
+                }
+                newValue = newValue + 1;
+                return changeTotalNumReturns(productID, newValue);
+            default:
+                break;
+        }
+    };
+    return (
+        <div className="wrapper-input-total-number">
+            <Button
+                icon={<Icon className="ri-arrow-down-s-line" />}
+                className="btn-left-down"
+                onClick={() => onHandleChangeTotalNumReturns('desc')}
+            />
+            <InputNumber
+                style={{ textAlign: 'center' }}
+                value={value || 0}
+                onValueChange={(values) =>
+                    onHandleChangeTotalNumReturns('input', values.floatValue)
+                }
+            />
+            <Button
+                icon={<Icon className="ri-arrow-up-s-line" />}
+                className="btn-right-up"
+                onClick={() => onHandleChangeTotalNumReturns('incr')}
+            />
+        </div>
+    );
 };
 
-const PopoverPrice = ({
-	productIndex,
-	pricePreSaleOff,
-	priceSaleOff,
-	priceAfterSaleOff,
-}) => {
-	const state = useContext(SaleContext);
-	const { changeValueSaleOffProduct } = state;
+const PopoverPrice = ({ pricePreSaleOff, priceSaleOff, priceAfterSaleOff }) => {
+    const content = (
+        <div style={{ width: '16rem' }}>
+            <Row justify="space-between">
+                <Col>Giá gốc</Col>
+                <Col>
+                    <TextPrice value={pricePreSaleOff} />
+                </Col>
+            </Row>
+            <Row justify="space-between">
+                <Col>Giảm giá</Col>
+                <Col>
+                    <TextPrice value={priceSaleOff} />
+                </Col>
+            </Row>
+            <Row justify="space-between">
+                <Col>Giá bán cho khách</Col>
+                <Col>
+                    <TextPrice value={priceAfterSaleOff} />
+                </Col>
+            </Row>
+        </div>
+    );
 
-	const onHandleChangeValueSaleOff = (valueInput) => {
-		if (valueInput <= 0 || isNaN(valueInput)) {
-			return changeValueSaleOffProduct(productIndex, 0);
-		}
-
-		if (valueInput >= pricePreSaleOff) {
-			return changeValueSaleOffProduct(productIndex, pricePreSaleOff);
-		}
-
-		return changeValueSaleOffProduct(productIndex, valueInput);
-	};
-
-	const content = (
-		<div style={{ width: '16rem' }}>
-			<Row justify="space-between">
-				<Col>Đơn giá</Col>
-				<Col>
-					<TextPrice value={pricePreSaleOff} />
-				</Col>
-			</Row>
-			<Row
-				justify="space-between"
-				align="middle"
-				gutter={[16, 8]}
-				style={{ marginTop: '0.25rem' }}
-			>
-				<Col span={8}>Giảm giá</Col>
-				<Col span={16}>
-					<InputNumber
-						value={priceSaleOff}
-						onValueChange={(values) =>
-							onHandleChangeValueSaleOff(values.floatValue)
-						}
-					/>
-				</Col>
-			</Row>
-			<Row justify="space-between" style={{ marginTop: '0.5rem' }}>
-				<Col>Giá bán</Col>
-				<Col>
-					<TextPrice value={priceAfterSaleOff} />
-				</Col>
-			</Row>
-		</div>
-	);
-
-	return (
-		<Popover
-			trigger="click"
-			placement="bottom"
-			content={content}
-			color={'#dee2e6'}
-		>
-			<Button
-			>
-				<TextPrice value={priceAfterSaleOff} />
-			</Button>
-		</Popover>
-	);
+    return (
+        <Popover
+            trigger="click"
+            placement="bottom"
+            content={content}
+            color={'#dee2e6'}
+        >
+            <div className="popover-info-price">
+                <Icon
+                    className="ri-information-fill"
+                    style={{ color: '#666' }}
+                />
+            </div>
+        </Popover>
+    );
 };
 
 const Product = ({
-	index,
-	name,
-	pricePreSaleOff,
-	priceSaleOff,
-	priceAfterSaleOff,
-	totalNum,
-	totalPrice,
+    index,
+    _id,
+    name,
+    pricePreSaleOff,
+    priceSaleOff,
+    priceAfterSaleOff,
+    totalNum,
+    totalNumReturns,
+    totalPrice,
+    priceReturns,
 }) => {
-	let productIndex = index - 1;
-
-	const { removeProduct }  = useContext(SaleContext);
-	
-	const styleRow = {
-		padding: '0.75rem 0',
-		borderBottom: '1px solid #dee2e6',
-	};
-	const styleChildCol = {
-		textCenter: {
-			textAlign: 'center',
-		},
-		textLeft: {
-			textAlign: 'left',
-		},
-	};
-	return (
-		<Row style={styleRow} align="middle">
-			<Col span={2} style={styleChildCol.textCenter}>
-				{index}
-			</Col>
-			<Col span={2} style={styleChildCol.textLeft}>
-				<Button
-					icon={<Icon className="ri-delete-bin-5-line" />}
-					type="danger"
-					onClick={()=>removeProduct(productIndex)}
-				/>
-			</Col>
-			<Col span={10} style={styleChildCol.textLeft}>
-				{name}
-			</Col>
-			<Col span={3} style={styleChildCol.textCenter}>
-				<InputTotalNumber
-					value={totalNum}
-					productIndex={productIndex}
-				/>
-			</Col>
-			<Col span={4} style={styleChildCol.textCenter}>
-				<PopoverPrice
-					productIndex={productIndex}
-					pricePreSaleOff={pricePreSaleOff}
-					priceSaleOff={priceSaleOff}
-					priceAfterSaleOff={priceAfterSaleOff}
-				/>
-			</Col>
-			<Col span={3} style={styleChildCol.textCenter}>
-				<TextPrice value={totalPrice} />
-			</Col>
-		</Row>
-	);
+    let productID = _id;
+    const styleRow = {
+        padding: '0.75rem 0',
+        borderBottom: '1px solid #dee2e6',
+    };
+    const styleChildCol = {
+        textCenter: {
+            textAlign: 'center',
+        },
+        textLeft: {
+            textAlign: 'left',
+        },
+    };
+    return (
+        <Row style={styleRow} align="middle">
+            <Col span={2} style={styleChildCol.textCenter}>
+                {index}
+            </Col>
+            <Col span={9} style={styleChildCol.textLeft}>
+                {name}
+            </Col>
+            <Col span={3} style={styleChildCol.textCenter}>
+                {totalNum}
+            </Col>
+            <Col span={3} style={styleChildCol.textCenter}>
+                <InputTotalNumberReturns
+                    value={totalNumReturns}
+                    productID={productID}
+                    limit={totalNum}
+                />
+            </Col>
+            <Col span={4} style={styleChildCol.textCenter}>
+                <Space align="middle">
+                    <TextPrice value={priceReturns} />
+                    <PopoverPrice
+                        pricePreSaleOff={pricePreSaleOff}
+                        priceSaleOff={priceSaleOff}
+                        priceAfterSaleOff={priceAfterSaleOff}
+                    />
+                </Space>
+            </Col>
+            <Col span={3} style={styleChildCol.textCenter}>
+                <TextPrice value={totalPrice} />
+            </Col>
+        </Row>
+    );
 };
 
 Product.defaultProps = {
-	index: 1,
-	name: '',
-	totalNum: 0,
-	price: 0,
-	totalPrice: 0,
+    index: 1,
+    name: '',
+    totalNum: 0,
+    price: 0,
+    totalPrice: 0,
 };
 
 Product.propTypes = {
-	index: PropTypes.number,
-	name: PropTypes.string,
-	totalNum: PropTypes.number,
-	price: PropTypes.number,
-	totalPrice: PropTypes.number,
+    index: PropTypes.number,
+    name: PropTypes.string,
+    totalNum: PropTypes.number,
+    price: PropTypes.number,
+    totalPrice: PropTypes.number,
 };
 
 export default Product;

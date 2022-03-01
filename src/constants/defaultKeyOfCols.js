@@ -51,9 +51,9 @@ export const keyOfColsReturns = [
     'code:1',
     'time:3',
     'nameCustomer:5',
-    'totalPaymentForCustomer:11',
-    'totalPaidForCustomer:12',
-    'status:14',
+    'totalPaymentForCustomer:8',
+    'totalPaidForCustomer:9',
+    'status:11',
 ];
 
 //end returns
@@ -73,7 +73,6 @@ export const keyOfColsReturnsPurchase = [
     'time:2',
     'nameSupplier:4',
     'totalPrice:7',
-    'saleOff:8',
     'totalPayment:9',
     'totalPaid:10',
     'status:12',

@@ -1,21 +1,20 @@
 import { useReducer } from 'react';
 import ScenePurchaseContext from 'contexts/createContext/ScenePurchaseContext';
-import scenePurchaseReducer from 'contexts/reducers/scenePurchaseReducer';
+import scenePurchaseReducer from 'contexts/reducers/scenePurchase';
 import {
     addProduct,
     changeTotalNum,
     removeProduct,
+    changeValueSaleOffProduct,
+    changeValueSaleOff,
+    changeValuePayment
 } from 'contexts/action-creators/scenePurchase';
 
 const ScenePurchaseState = ({ children }) => {
     const initialState = {
         products: [],
-        typeShow: 'all',
-        totalPrice: 0,
-        saleOff: 0,
-        totalPayment: 0,
+        valueSaleOff: 0,
         totalPaid: 0,
-        debt: 0,
     };
 
     const [state, dispatch] = useReducer(scenePurchaseReducer, initialState);
@@ -32,19 +31,30 @@ const ScenePurchaseState = ({ children }) => {
         dispatch(changeTotalNum(productID, value));
     };
 
+    const onHandleChangeValueSaleOffProduct = (productID,value) => {
+        dispatch(changeValueSaleOffProduct(productID,value));
+    };
+
+    const onHandleChangeValueSaleOff = (value) => {
+        dispatch(changeValueSaleOff(value));
+    };
+
+    const onHandleChangeValuePayment = (value) => {
+        dispatch(changeValuePayment(value));
+    };
+
     return (
         <ScenePurchaseContext.Provider
             value={{
-                typeShow: state.typeShow,
                 products: state.products,
-                totalPrice: state.totalPrice,
-                saleOff: state.saleOff,
-                totalPayment: state.totalPayment,
+                valueSaleOff: state.valueSaleOff,
                 totalPaid: state.totalPaid,
-                debt: state.debt,
                 addProduct: onHandleAddProduct,
                 removeProduct: onHandleRemoveProduct,
                 changeTotalNum: onHandleChangeTotalNum,
+                changeValueSaleOffProduct:onHandleChangeValueSaleOffProduct,
+                changeValueSaleOff:onHandleChangeValueSaleOff,
+                changeValuePayment:onHandleChangeValuePayment
             }}
         >
             {children}

@@ -9,7 +9,7 @@ const MenuBar = ({nameSelected,namePage}) => {
 				{
 					name: 'overview',
 					label: 'Tổng quan',
-					path: '/',
+					path: '/overview',
 				},
 			],
 		},

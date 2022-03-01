@@ -2,7 +2,7 @@ import Layout from 'components/layout/Layout';
 import Content from 'components/transaction/scene-purchase';
 import ScenePurchaseState from 'contexts/ScenePurchaseState';
 
-const SceneStockTakes = () => {
+const ScenePurchase = () => {
     return (
         <Layout namePage="purchase" nameSelected="transaction">
             <ScenePurchaseState>
@@ -12,4 +12,4 @@ const SceneStockTakes = () => {
     );
 };
 
-export default SceneStockTakes;
+export default ScenePurchase;

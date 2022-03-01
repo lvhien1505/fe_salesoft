@@ -2,13 +2,11 @@ import {
 	CHANGE_ACTIVE_KEY,
 	ADD_TAB,
 	REMOVE_TAB,
-	ADD_PRODUCT,
-	REMOVE_PRODUCT,
-	CHANGE_TOTAL_NUM,
-	CHANGE_VALUE_SALEOFF_PRODUCT,
-	CHANGE_VALUE_SALEOFF,
-	CHANGE_VALUE_PAYMENT,
-} from 'contexts/action-types/sale';
+	ADD_INVOICE,
+	CHANGE_TOTAL_NUM_RETURNS,
+	CHANGE_FEE,
+	CHANGE_TOTAL_PAID,
+} from 'contexts/action-types/sceneReturns';
 
 export const changeActiveKey = (activeKey) => {
 	return {
@@ -37,56 +35,37 @@ export const removeTab = (key, newActiveKey) => {
 		},
 	};
 };
-export const addProduct = (product) => {
+export const addInvoice = (invoice) => {
 	return {
-		type: ADD_PRODUCT,
+		type: ADD_INVOICE,
 		payload: {
-			product,
+			invoice,
 		},
 	};
 };
 
-export const removeProduct = (productIndex) => {
+export const changeTotalNumReturns = (productID, value) => {
 	return {
-		type: REMOVE_PRODUCT,
+		type: CHANGE_TOTAL_NUM_RETURNS,
 		payload: {
-			productIndex,
-		},
-	};
-};
-
-export const changeTotalNum = (productIndex, value) => {
-	return {
-		type: CHANGE_TOTAL_NUM,
-		payload: {
-			productIndex,
+			productID,
 			value,
 		},
 	};
 };
 
-export const changeValueSaleOffProduct = (productIndex, value) => {
+export const changeFee = (value) => {
 	return {
-		type: CHANGE_VALUE_SALEOFF_PRODUCT,
-		payload: {
-			productIndex,
-			value,
-		},
-	};
-};
-
-export const changeValueSaleOff = (value) => {
-	return {
-		type: CHANGE_VALUE_SALEOFF,
+		type: CHANGE_FEE,
 		payload: {
 			value,
 		},
 	};
 };
 
-export const changeValuePayment = (value) => {
+export const changeTotalPaid = (value) => {
 	return {
-		type: CHANGE_VALUE_PAYMENT,
+		type: CHANGE_TOTAL_PAID,
 		payload: {
 			value,
 		},

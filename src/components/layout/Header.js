@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,useOutletContext } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Image } from 'antd';
 import Logo from 'components/ui/logo/Logo';
@@ -11,6 +11,10 @@ const Header = ({ type }) => {
     const redirectPage = (path) => {
         navigate(path);
     };
+
+    const data = useOutletContext();
+
+    console.log(data)
     return (
         <div className={type === 'manage' ? 'manage__header' : 'sale__header'}>
             <Logo />

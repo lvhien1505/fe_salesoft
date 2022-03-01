@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { Table } from 'antd';
 import ManageContext from 'contexts/createContext/ManageContext';
 
-const TableManage = () => {
+const TableManage = ({data,...rest}) => {
 	const { columns,keyOfCols } = useContext(ManageContext);
 	let cols = [];
 	keyOfCols.forEach((key)=>{
@@ -13,7 +13,7 @@ const TableManage = () => {
 		}
 	})
 
-	return <Table columns={cols}/>;
+	return <Table columns={cols} dataSource={data} {...rest}/>;
 };
 
 export default TableManage;

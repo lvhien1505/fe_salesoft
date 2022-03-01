@@ -1,0 +1,51 @@
+@import 'sass/colors';
+
+.modal-invoices {
+    .btn__default--format {
+        height: 39px;
+        border-bottom: 1px solid #237fcd;
+        border-radius: 0.36rem;
+
+        i {
+            margin: 0;
+            font-weight: 1000;
+            font-size: 1.25rem;
+        }
+    }
+
+    .btn__default--format:hover {
+        background-color: $color-blue--dark !important;
+        i {
+            color: #fff !important;
+        }
+    }
+}
+
+.search-string,
+.search-time {
+    padding-bottom: 1rem;
+    .title {
+        background-color: #8bd4f2;
+        padding: 0.5rem 0.5rem;
+        margin-bottom: 1rem;
+
+        span{
+            font-weight: 600;
+        }
+    }
+}
+
+.search-time{
+    &-content{
+       position: relative;
+       margin-bottom: 0.5rem;
+       i{
+           position: absolute;
+           top: 0.25rem;
+           right: 0;
+           font-weight: 1000;
+           font-size: 1rem;
+           color: #666;
+       }
+    }
+}

@@ -8,7 +8,7 @@
         position: absolute;
         top: 50%;
         z-index: 10;
-		margin-top: -12px;
+        margin-top: -12px;
     }
 
     .icon-left {
@@ -47,5 +47,16 @@
             0 0.9375rem 1.40625rem rgba(31, 10, 6, 0.03),
             0 0.25rem 0.53125rem rgba(31, 10, 6, 0.05),
             0 0.125rem 0.1875rem rgba(31, 10, 6, 0.03);
+    }
+
+    .input-search {
+        padding-left: 1.75rem;
+        padding-right: 1.75rem;
+        height: 36px;
+        border-radius: 0.36rem;
+    }
+
+    .ant-input-affix-wrapper-focused{
+        border-bottom-color: #40a9ff !important;
     }
 }

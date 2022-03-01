@@ -26,34 +26,28 @@ const Field = ({ label, suffixLabel, children, styleLabel }) => {
     );
 };
 
-const FieldFee = ({ valueSaleOff, totalPrice }) => {
-    const { changeValueSaleOff } = useContext(SceneReturnsContext);
-
-    const styleBtn = {
-        position: 'absolute',
-        top: '7px',
-        left: '-1px',
-    };
+const FieldFee = ({ fee, totalPrice }) => {
+    const { changeFee } = useContext(SceneReturnsContext);
 
     const onChangeValue = (value) => {
         if (value <= 0 || isNaN(value)) {
             value = 0;
         }
         if (value >= totalPrice) {
-            return changeValueSaleOff(totalPrice);
+            return changeFee(totalPrice);
         }
-        changeValueSaleOff(value);
+        changeFee(value);
     };
 
     return (
         <Field label="Phí trả hàng">
             <div style={{ position: 'relative' }}>
                 <InputNumber
-                    value={valueSaleOff}
+                    value={fee}
                     style={{ color: '#4bac4d', fontWeight: '600' }}
                     onValueChange={(values) => onChangeValue(values.floatValue)}
+                    size="large"
                 />
-                <ButtonCustom text={'VND'} style={styleBtn} />
             </div>
         </Field>
     );
@@ -62,8 +56,9 @@ const FieldFee = ({ valueSaleOff, totalPrice }) => {
 const Calculation = ({
     nameBill,
     products,
+    totalValueInvoice,
     totalPrice,
-    valueSaleOff,
+    fee,
     totalPayment,
     totalPaid,
     change,
@@ -75,20 +70,20 @@ const Calculation = ({
         borderRadius: '0.25rem',
     };
 
-    const { changeValuePayment } = useContext(SceneReturnsContext);
+    const { changeTotalPaid } = useContext(SceneReturnsContext);
 
     const onChangeValue = (value) => {
         if (value <= 0 || isNaN(value)) {
             value = 0;
         }
-        changeValuePayment(value);
+        changeTotalPaid(value);
     };
 
     const onFinish = () => {
         console.log(
             products,
             totalPrice,
-            valueSaleOff,
+            fee,
             totalPayment,
             totalPaid,
             change,
@@ -99,7 +94,12 @@ const Calculation = ({
     return (
         <Row gutter={[0, 16]}>
             <Field label={<ButtonCustom type="secondary" text={nameBill} />}>
-                <DatePicker defaultDate={'12-06-1998 12:07'} ref={inputRef} />
+                <DatePicker
+                    defaultDate={'12-06-1998 12:07'}
+                    ref={inputRef}
+                    showTime={true}
+                    isCustom={true}
+                />
             </Field>
             <Field label="Bảng giá">
                 <span>Bảng giá chung</span>
@@ -107,20 +107,17 @@ const Calculation = ({
             <Field label="Khách hàng">
                 <span>Transang</span>
             </Field>
-            <Field label="Tổng giá trị hóa đơn" >
+            <Field label="Tổng giá trị hóa đơn">
                 <span style={{ fontWeight: '600' }}>
-                    <TextPrice value={totalPrice} />
+                    <TextPrice value={totalValueInvoice} />
                 </span>
             </Field>
             <Field label="Tổng tiền hàng trả" styleLabel={{ fontWeight: 600 }}>
-                <span style={{ fontWeight: '600' }}>
+                <span style={{ fontWeight: '600', color: '#237fcd' }}>
                     <TextPrice value={totalPrice} />
                 </span>
             </Field>
-            <FieldFee
-                valueSaleOff={valueSaleOff}
-                totalPrice={totalPrice}
-            />
+            <FieldFee fee={fee} totalPrice={totalPrice} />
             <Field label="Cần trả khách" styleLabel={{ fontWeight: 600 }}>
                 <span style={{ fontWeight: '600' }}>
                     <TextPrice value={totalPayment} />
@@ -131,11 +128,12 @@ const Calculation = ({
                     value={totalPaid || 0}
                     style={{ color: '#4bac4d', fontWeight: '600' }}
                     onValueChange={(values) => onChangeValue(values.floatValue)}
+                    size="large"
                 />
             </Field>
-            <Field label={change >= 0 ? 'Tính vào công nợ' : 'Khách thiếu'}>
+            <Field label="Tính vào công nợ">
                 <span>
-                    <TextPrice value={change >= 0 ? change : -change} />
+                    <TextPrice value={change} />
                 </span>
             </Field>
             <Col span={24}>

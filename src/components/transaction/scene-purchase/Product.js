@@ -57,22 +57,21 @@ const InputNumProduct = ({ productID, value }) => {
 };
 
 const PopoverPrice = ({
-    productIndex,
+    productID,
     pricePreSaleOff,
     priceSaleOff,
     priceAfterSaleOff,
 }) => {
-    // const state = useContext(SaleContext);
-    // const { changeValueSaleOffProduct } = state;
+    const {changeValueSaleOffProduct} = useContext(ScenePurchaseContext);
 
     const onHandleChangeValueSaleOff = (valueInput) => {
-        // if (valueInput <= 0 || isNaN(valueInput)) {
-        // 	return changeValueSaleOffProduct(productIndex, 0);
-        // }
-        // if (valueInput >= pricePreSaleOff) {
-        // 	return changeValueSaleOffProduct(productIndex, pricePreSaleOff);
-        // }
-        // return changeValueSaleOffProduct(productIndex, valueInput);
+        if (valueInput <= 0 || isNaN(valueInput)) {
+        	return changeValueSaleOffProduct(productID, 0);
+        }
+        if (valueInput >= pricePreSaleOff) {
+        	return changeValueSaleOffProduct(productID, pricePreSaleOff);
+        }
+        return changeValueSaleOffProduct(productID, valueInput);
     };
 
     const content = (
@@ -186,6 +185,7 @@ const Product = ({
                     pricePreSaleOff={pricePreSaleOff}
                     priceAfterSaleOff={priceAfterSaleOff}
                     priceSaleOff={priceSaleOff}
+                    productID={productID}
                 />
             </Col>
             <Col span={3} style={styleChildCol.textRight}>

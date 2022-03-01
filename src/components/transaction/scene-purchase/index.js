@@ -8,50 +8,36 @@ import ScenePurchaseContext from 'contexts/createContext/ScenePurchaseContext';
 
 import '../styles/scenePurchase.scss';
 
-const getListProductCompare = (products) => {
-    return products.filter((product) => product.valueDiff === 0);
-};
-
-const getListProductDiff = (products) => {
-    return products.filter((product) => product.valueDiff != 0);
-};
-
-const getTotalNumReal = (products) => {
-    if (products.length > 0) {
-        return products.reduce((pre, current) => pre + current.numReal, 0);
-    } else {
-        return products.length;
-    }
-};
-
-const getTotalDiffChange = (type, products) => {
-    let totalNum = 0;
-    let totalValue = 0;
-    if (products.length > 0) {
-        products.forEach((product) => {
-            if (type === 'incr') {
-                if (product.numDiff > 0) {
-                    totalNum += product.numDiff;
-                    totalValue += product.valueDiff;
-                }
-            }
-            if (type === 'desc') {
-                if (product.numDiff < 0) {
-                    totalNum += product.numDiff;
-                    totalValue += product.valueDiff;
-                }
-            }
-        });
-    }
-    return {
-        totalNum: totalNum,
-        totalValue: totalValue,
-    };
-};
-
 const Content = () => {
-    const { products, totalPrice, saleOff, totalPayment, totalPaid, debt } =
+    const { products, valueSaleOff, totalPaid } =
         useContext(ScenePurchaseContext);
+    // declare totalPrice
+    let totalPrice = products.reduce(
+        (pre, current) => pre + current.totalPrice,
+        0
+    );
+
+    if (isNaN(totalPrice)) {
+        totalPrice = 0;
+    }
+    // declare valueSaleOff
+    let cloneValueSaleOff = valueSaleOff;
+
+    if (cloneValueSaleOff > totalPrice) {
+        cloneValueSaleOff = totalPrice;
+    }
+    // declare totalPayment
+    let totalPayment = totalPrice - cloneValueSaleOff;
+    let cloneTotalPaid = totalPaid;
+
+    if (cloneTotalPaid === 0) {
+        cloneTotalPaid = totalPayment;
+    } else if (isNaN(cloneTotalPaid)) {
+        cloneTotalPaid = 0;
+    }
+
+    //declare change
+    let change = cloneTotalPaid - totalPayment;
 
     return (
         <Row className="scene-start">
@@ -84,10 +70,10 @@ const Content = () => {
             <Col span={7} className="scene-start__right">
                 <Calculation
                     totalPrice={totalPrice}
-                    saleOff={saleOff}
+                    valueSaleOff={cloneValueSaleOff}
                     totalPayment={totalPayment}
-                    totalPaid={totalPaid}
-                    debt={debt}
+                    totalPaid={cloneTotalPaid}
+                    change={change}
                 />
             </Col>
         </Row>

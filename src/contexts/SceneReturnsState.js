@@ -2,24 +2,24 @@ import { useReducer } from 'react';
 import SceneReturnsContext from 'contexts/createContext/SceneReturnsContext';
 import sceneReturnsReducer from 'contexts/reducers/sceneReturns';
 import {
-	addProduct,
-	removeProduct,
+	addInvoice,
 	changeActiveKey,
 	addTab,
 	removeTab,
-	changeTotalNum,
-	changeValueSaleOffProduct,
-	changeValueSaleOff,
-	changeValuePayment,
-} from 'contexts/action-creators/sale';
+	changeTotalNumReturns,
+	changeFee,
+	changeTotalPaid,
+} from 'contexts/action-creators/sceneReturns';
 
-const SaleState = ({ children }) => {
+const SceneReturnsState = ({ children }) => {
 	const initialState = {
 		tabs: [
 			{
 				key: '1',
+				code:'',
 				products: [],
-				valueSaleOff: 0,
+				totalValueInvoice:0,
+				fee: 0,
 				totalPaid: 0,
 			},
 		],
@@ -32,14 +32,9 @@ const SaleState = ({ children }) => {
 		dispatch(changeActiveKey(activeKey));
 	};
 
-	const onHandleAddProduct = (product) => {
-		dispatch(addProduct(product));
+	const onHandleAddInvoice = (invoice) => {
+		dispatch(addInvoice(invoice));
 	};
-
-	const onHandleRemoveProduct = (productIndex) => {
-		dispatch(removeProduct(productIndex));
-	};
-
 
 	const onHandleAddTab = (tab, newActiveKey) => {
 		dispatch(addTab(tab, newActiveKey));
@@ -49,20 +44,16 @@ const SaleState = ({ children }) => {
 		dispatch(removeTab(tab, newActiveKey));
 	};
 
-	const onHandleChangeTotalNum = (productIndex, value) => {
-		dispatch(changeTotalNum(productIndex, value));
+	const onHandleChangeTotalNumReturns = (productID, value) => {
+		dispatch(changeTotalNumReturns(productID, value));
 	};
 
-	const onHandleChangeValueSaleOffProduct = (productIndex, value) => {
-		dispatch(changeValueSaleOffProduct(productIndex, value));
+	const onHandleChangeFee = (value) => {
+		dispatch(changeFee(value));
 	};
 
-	const onHandleChangeValueSaleOff = (value) => {
-		dispatch(changeValueSaleOff(value));
-	};
-
-	const onHandleChangeValuePayment = (value) => {
-		dispatch(changeValuePayment(value));
+	const onHandleChangeTotalPaid = (value) => {
+		dispatch(changeTotalPaid(value));
 	};
 
 	return (
@@ -73,12 +64,11 @@ const SaleState = ({ children }) => {
 				changeActiveKey: onHandleChangeActiveKey,
 				addTab: onHandleAddTab,
 				removeTab: onHandleRemoveTab,
-				addProduct: onHandleAddProduct,
-				removeProduct:onHandleRemoveProduct,
-				changeTotalNum: onHandleChangeTotalNum,
-				changeValueSaleOffProduct: onHandleChangeValueSaleOffProduct,
-				changeValueSaleOff: onHandleChangeValueSaleOff,
-				changeValuePayment: onHandleChangeValuePayment,
+				addInvoice: onHandleAddInvoice,
+				changeTotalNumReturns: onHandleChangeTotalNumReturns,
+				changeFee: onHandleChangeFee,
+				changeTotalPaid: onHandleChangeTotalPaid,
+
 			}}
 		>
 			{children}
@@ -86,4 +76,4 @@ const SaleState = ({ children }) => {
 	);
 };
 
-export default SaleState;
+export default SceneReturnsState;

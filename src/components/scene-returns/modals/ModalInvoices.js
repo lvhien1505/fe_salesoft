@@ -1,15 +1,26 @@
-import { useState } from 'react';
-import { Row, Col, Modal, Table } from 'antd';
+import { useState,useContext } from 'react';
+import { Row, Col, Modal, Table,Button } from 'antd';
 import ButtonCustom from 'components/ui/button/Button';
 import { InputString } from 'components/ui/input/Input';
 import Icon from 'components/ui/icon/Icon';
 import DatePicker from 'components/common/DatePicker';
 import cols from 'constants/columnInvoiceReturns';
 import data from 'apis/fakedata/products';
+import SceneReturnsContext from 'contexts/createContext/SceneReturnsContext';
 
 import '../styles/modalInvoices.scss';
 
 const ModalInvoices = ({ type, visible, onCancel, ...rest }) => {
+    let { addInvoice } = useContext(SceneReturnsContext);
+
+    const onHandleAddInvoice = (invoice) => {
+        addInvoice(invoice);
+        onCancel();
+    };
+    cols[cols.length - 1].render = (record) => (
+        <Button onClick={() => onHandleAddInvoice(record)}>Chọn</Button>
+    );
+
     return (
         <Modal
             title="Chọn hóa đơn trả hàng"
@@ -75,6 +86,7 @@ const ModalInvoices = ({ type, visible, onCancel, ...rest }) => {
                                 dateFormat="dd/MM/yyyy"
                                 showTime={false}
                                 placeholder="Đến ngày"
+                                defaultDate={null}
                             />
                             <Icon className="ri-calendar-2-fill" />
                         </div>
@@ -89,7 +101,7 @@ const ModalInvoices = ({ type, visible, onCancel, ...rest }) => {
                     </Row>
                 </Col>
                 <Col span={19}>
-                    <Table columns={cols} dataSource={data.invoicesReturns}/>
+                    <Table columns={cols} dataSource={data.invoicesReturns} />
                 </Col>
             </Row>
         </Modal>

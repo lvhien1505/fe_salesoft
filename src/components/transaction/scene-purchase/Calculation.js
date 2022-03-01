@@ -4,6 +4,7 @@ import ButtonCustom from 'components/ui/button/Button';
 import { InputTextArea, InputNumber } from 'components/ui/input/Input';
 import TextPrice from 'components/common/TextPrice';
 import DatePicker from 'components/common/DatePicker';
+import ScenePurchaseContext from 'contexts/createContext/ScenePurchaseContext';
 
 const Field = ({ label, suffixLabel, children, styleLabel }) => {
     styleLabel = { fontSize: '0.875rem', ...styleLabel };
@@ -36,7 +37,7 @@ const Field = ({ label, suffixLabel, children, styleLabel }) => {
 };
 
 const FieldDiscount = ({ valueSaleOff, totalPrice }) => {
-    // const { changeValueSaleOff } = useContext(SaleContext);
+    const { changeValueSaleOff } = useContext(ScenePurchaseContext);
 
     const styleBtn = {
         position: 'absolute',
@@ -45,13 +46,13 @@ const FieldDiscount = ({ valueSaleOff, totalPrice }) => {
     };
 
     const onChangeValue = (value) => {
-        // if (value <= 0 || isNaN(value)) {
-        //     value = 0;
-        // }
-        // if (value >= totalPrice) {
-        //     return changeValueSaleOff(totalPrice);
-        // }
-        // changeValueSaleOff(value);
+        if (value <= 0 || isNaN(value)) {
+            value = 0;
+        }
+        if (value >= totalPrice) {
+            return changeValueSaleOff(totalPrice);
+        }
+        changeValueSaleOff(value);
     };
 
     return (
@@ -71,16 +72,21 @@ const FieldDiscount = ({ valueSaleOff, totalPrice }) => {
 
 const Calculation = ({
     totalPrice,
-    saleOff,
+    valueSaleOff,
     totalPayment,
     totalPaid,
-    debt
+    change,
 }) => {
     let inputRef = useRef();
+    const { changeValuePayment } = useContext(ScenePurchaseContext);
     const styleBtn = {
         width: '100%',
         padding: '1.25rem 0',
         borderRadius: '0.25rem',
+    };
+
+    const onChangeValue = (value) => {
+        changeValuePayment(value);
     };
 
     const onFinish = () => {
@@ -92,7 +98,7 @@ const Calculation = ({
             <Field label="Ngày nhập">
                 <DatePicker defaultDate={'12-06-1998 12:07'} ref={inputRef} />
             </Field>
-            <Field label="Mã phiếu nhập">
+            <Field label="Khách hàng">
                 <span>0</span>
             </Field>
             <Field label="Trạng thái">
@@ -104,7 +110,10 @@ const Calculation = ({
                     <TextPrice value={totalPrice} />
                 </span>
             </Field>
-            <FieldDiscount valueSaleOff={saleOff} totalPrice={totalPrice} />
+            <FieldDiscount
+                valueSaleOff={valueSaleOff}
+                totalPrice={totalPrice}
+            />
             <Field label="Cần trả NCC">
                 <span>
                     <TextPrice value={totalPayment} />
@@ -114,12 +123,12 @@ const Calculation = ({
                 <InputNumber
                     value={totalPaid}
                     style={{ color: '#4bac4d', fontWeight: '600' }}
-                    /*onValueChange={(values) => onChangeValue(values.floatValue)}*/
+                    onValueChange={(values) => onChangeValue(values.floatValue)}
                 />
             </Field>
             <Field label="Tính vào công nợ">
                 <span>
-                    <TextPrice value={debt} />
+                    <TextPrice value={change} />
                 </span>
             </Field>
             <Col span={24}>

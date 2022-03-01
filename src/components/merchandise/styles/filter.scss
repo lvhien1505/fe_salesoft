@@ -1,0 +1,52 @@
+.filter-category-product {
+    .list-category {
+        margin-top: 0.5rem;
+        height: 16rem;
+        overflow: auto;
+
+        .item-category {
+            height: 2.25rem;
+            padding: 0.25rem 0.5rem 0.25rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            span.title {
+                font-size: 0.875rem;
+            }
+
+            span.icon {
+                visibility: hidden;
+                height: 1.5rem;
+                width: 1.5rem;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-radius: 50%;
+                i {
+                    font-size: 1.125rem;
+                    font-weight: 1000;
+                }
+            }
+
+            span.icon:hover {
+                background-color: #e5e5e5;
+            }
+        }
+
+        .item-category:focus,.item-category-default{
+            background-color: #f2f2f2;
+            span.title{
+                font-weight: 600;
+            }
+        }
+
+        .item-category:hover {
+            background-color: #f2f2f2;
+            cursor: pointer;
+
+            span.icon {
+                visibility: visible;
+            }
+        }
+    }
+}

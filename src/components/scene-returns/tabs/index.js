@@ -48,7 +48,11 @@ const TabsSale = () => {
 		addTab(
 			{
 				key: `${activeKey}`,
+				code:'',
 				products: [],
+				totalValueInvoice:0,
+				fee:0,
+				totalPaid:0,
 			},
 			`${activeKey}`
 		);

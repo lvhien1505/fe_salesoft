@@ -15,16 +15,16 @@ const DatePicker = forwardRef(
             showTime,
             dateFormat,
             placeholder,
+            size
         },
         ref
     ) => {
         registerLocale('vi', vi);
-        if (defaultDate) {
-            defaultDate = moment(
-                defaultDate,
-                'DD-MM-YYYY hh:mm',
-                true
-            ).toDate();
+        if (defaultDate === null) {
+            defaultDate = ""
+        } else if (defaultDate) {
+            let format = showTime ? 'DD-MM-YYYY hh:mm' : 'DD-MM-YYYY';
+            defaultDate = moment(defaultDate, format, true).toDate();
         } else {
             defaultDate = new Date();
         }
@@ -50,7 +50,7 @@ const DatePicker = forwardRef(
                 className={
                     'ant-input ant-input-borderless input--format' +
                     ' ' +
-                    (isCustom ? 'datepicker--custom' : '')
+                    (isCustom ? 'datepicker--custom' : '') + (size === 'large' ? ' ant-input-lg' : ' ant-input-sm')
                 }
                 withPortal={withPortal}
                 ref={ref}
@@ -64,7 +64,8 @@ DatePicker.defaultProps = {
     withPortal: true,
     showTime: false,
     dateFormat: 'Pp',
-    placeholder:''
+    placeholder: '',
+    size:'small'
 };
 
 DatePicker.propTypes = {
@@ -72,6 +73,7 @@ DatePicker.propTypes = {
     withPortal: PropTypes.bool,
     dateFormat: PropTypes.string,
     placeholder: PropTypes.string,
+    size: PropTypes.string,
 };
 
 export default DatePicker;

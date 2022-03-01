@@ -19,12 +19,7 @@ const Search = ({ listField, placeholderMain }) => {
             </div>
             <Input
                 placeholder={placeholderMain}
-                style={{
-                    paddingLeft: '1.75rem',
-                    paddingRight: '1.75rem',
-                    height: '36px',
-                    borderRadius: '0.36rem',
-                }}
+                className="input-search"
                 onFocus={() => setShowDropdown(false)}
                 allowClear
             />

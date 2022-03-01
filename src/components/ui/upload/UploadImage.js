@@ -3,56 +3,57 @@ import { Upload } from 'antd';
 import ImgCrop from 'antd-img-crop';
 import PropTypes from 'prop-types';
 
-const UploadImage = ({ max }) => {
-	const [fileList, setFileList] = useState([
-		{
-			uid: '-1',
-			name: 'image.png',
-			status: 'done',
-			url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-		},
-	]);
+const UploadImage = ({ max, getFileList }) => {
+    const [fileList, setFileList] = useState([]);
 
-	const onChange = ({ fileList: newFileList }) => {
-		setFileList(newFileList);
-	};
+    const dummyRequest = ({ onSuccess }) => {
+        setTimeout(() => {
+            onSuccess('ok');
+        }, 0);
+    };
 
-	const onPreview = async (file) => {
-		let src = file.url;
-		if (!src) {
-			src = await new Promise((resolve) => {
-				const reader = new FileReader();
-				reader.readAsDataURL(file.originFileObj);
-				reader.onload = () => resolve(reader.result);
-			});
-		}
-		const image = new Image();
-		image.src = src;
-		const imgWindow = window.open(src);
-		imgWindow.document.write(image.outerHTML);
-	};
+    const onChange = ({ fileList: newFileList }) => {
+		getFileList(newFileList);
+        setFileList(newFileList);
+    };
 
-	return (
-		<ImgCrop rotate>
-			<Upload
-				action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-				listType="picture-card"
-				fileList={fileList}
-				onChange={onChange}
-				onPreview={onPreview}
-			>
-				{fileList.length < max && '+ Tải ảnh lên '}
-			</Upload>
-		</ImgCrop>
-	);
+    const onPreview = async (file) => {
+        let src = file.url;
+        if (!src) {
+            src = await new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file.originFileObj);
+                reader.onload = () => resolve(reader.result);
+            });
+        }
+        const image = new Image();
+        image.src = src;
+        const imgWindow = window.open(src);
+        imgWindow.document.write(image.outerHTML);
+    };
+
+    return (
+        <ImgCrop rotate>
+            <Upload
+                action=""
+                listType="picture-card"
+                fileList={fileList}
+                onChange={onChange}
+                onPreview={onPreview}
+                customRequest={dummyRequest}
+            >
+                {fileList.length < max && '+ Tải ảnh lên '}
+            </Upload>
+        </ImgCrop>
+    );
 };
 
 UploadImage.defaultProps = {
-	max: 5,
+    max: 5,
 };
 
 UploadImage.propTypes = {
-	max: PropTypes.number,
+    max: PropTypes.number,
 };
 
 export default UploadImage;

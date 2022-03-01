@@ -3,6 +3,9 @@ import {
     ADD_PRODUCT,
     REMOVE_PRODUCT,
     CHANGE_TOTAL_NUM,
+    CHANGE_VALUE_SALEOFF_PRODUCT,
+    CHANGE_VALUE_SALEOFF,
+    CHANGE_VALUE_PAYMENT
 } from 'contexts/action-types/scenePurchase';
 
 const findIndexItem = (arr, key, value) => {
@@ -29,6 +32,12 @@ const updateProduct = (type, product, value) => {
     if (type === 'changeTotalNum') {
         newProduct.totalNum = value;
         newProduct.totalPrice = value * newProduct.priceAfterSaleOff;
+    }
+    if (type === 'changeValueSaleOff') {
+        newProduct.priceSaleOff = value;
+        newProduct.priceAfterSaleOff = newProduct.pricePreSaleOff - value;
+        newProduct.totalPrice =
+            newProduct.totalNum * newProduct.priceAfterSaleOff;
     }
     return newProduct;
 };
@@ -79,6 +88,24 @@ const scenePurchaseReducer = (state, action) => {
                 action.payload.value
             );
 
+            return { ...state };
+        case CHANGE_VALUE_SALEOFF_PRODUCT:
+            indexProduct = findIndexItem(
+                state.products,
+                '_id',
+                action.payload.productID
+            );
+            state.products[indexProduct] = updateProduct(
+                'changeValueSaleOff',
+                state.products[indexProduct],
+                action.payload.value
+            );
+            return { ...state };
+        case CHANGE_VALUE_SALEOFF:
+            state.valueSaleOff = action.payload.value;
+            return { ...state };
+        case CHANGE_VALUE_PAYMENT:
+            state.totalPaid = action.payload.value;
             return { ...state };
         default:
             return { ...state };

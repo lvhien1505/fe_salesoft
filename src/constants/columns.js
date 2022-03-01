@@ -1,3 +1,4 @@
+import TextPrice from 'components/common/TextPrice';
 // manage
 // merchandise
 // product
@@ -16,21 +17,28 @@ export const colsProduct = [
         title: 'Nhóm hàng',
         dataIndex: 'category',
         key: 'category:3',
+        render: (value) => value.name
     },
     {
         title: 'Loại hàng',
-        dataIndex: 'group',
-        key: 'group:4',
+        dataIndex: 'type',
+        key: 'type:4',
+        render: (value) =>
+            value === 'product' ? '' : 'Combo - Đóng gói',
     },
     {
         title: 'Giá bán',
         dataIndex: 'price',
         key: 'price:5',
+        align: 'end',
+        render: (value) => <TextPrice value={value} />,
     },
     {
         title: 'Giá vốn',
         dataIndex: 'costPrice',
         key: 'costPrice:6',
+        align: 'end',
+        render: (value) => <TextPrice value={value} />,
     },
     {
         title: 'Thương hiệu',
@@ -41,6 +49,8 @@ export const colsProduct = [
         title: 'Tồn kho',
         dataIndex: 'inventory',
         key: 'inventory:8',
+        align: 'end',
+        render: (value) => <TextPrice value={value} />,
     },
     {
         title: 'Vị trí',
@@ -56,16 +66,21 @@ export const colsProduct = [
         title: 'Định mức tồn ít nhất',
         dataIndex: 'lessEstimate',
         key: 'lessEstimate:11',
+        align: 'end',
+        render: (value) => <TextPrice value={value} />,
     },
     {
         title: 'Định mức tồn nhiều nhất',
         dataIndex: 'mostEstimate',
         key: 'mostEstimate:12',
+        align: 'end',
+        render: (value) => <TextPrice value={value} />,
     },
     {
         title: 'Trạng thái',
         dataIndex: 'status',
         key: 'status:13',
+        render:(value)=> value === 'inactive' ? 'Ngừng bán' : ''
     },
 ];
 
@@ -306,44 +321,29 @@ export const colsReturns = [
         key: 'totalPrice:6',
     },
     {
-        title: 'Giảm giá',
-        dataIndex: 'saleOff',
-        key: 'saleOff:7',
-    },
-    {
-        title: 'Tổng sau giảm giá',
-        dataIndex: 'totalPriceAfterSaleOff',
-        key: 'totalPriceAfterSaleOff:8',
-    },
-    {
         title: 'Phí trả hàng',
         dataIndex: 'feeReturns',
-        key: 'feeReturns:9',
-    },
-    {
-        title: 'Thu khác hoàn lại',
-        dataIndex: 'collectBonus',
-        key: 'collectBonus:10',
+        key: 'feeReturns:7',
     },
     {
         title: 'Cần trả khách',
         dataIndex: 'totalPaymentForCustomer',
-        key: 'totalPaymentForCustomer:11',
+        key: 'totalPaymentForCustomer:8',
     },
     {
         title: 'Đã trả khách',
         dataIndex: 'totalPaidForCustomer',
-        key: 'totalPaidForCustomer:12',
+        key: 'totalPaidForCustomer:9',
     },
     {
         title: 'Ghi chú',
         dataIndex: 'note',
-        key: 'note:13',
+        key: 'note:10',
     },
     {
         title: 'Trạng thái',
         dataIndex: 'status',
-        key: 'status:14',
+        key: 'status:11',
     },
 ];
 
@@ -456,9 +456,9 @@ export const colsReturnsPurchase = [
         key: 'totalPrice:7',
     },
     {
-        title: 'Giảm giá',
-        dataIndex: 'saleOff',
-        key: 'saleOff:8',
+        title: 'Phí trả',
+        dataIndex: 'feeReturns',
+        key: 'feeReturns:8',
     },
     {
         title: 'NCC cần trả',
@@ -499,8 +499,8 @@ export const colsCustomer = [
     },
     {
         title: 'Loại khách',
-        dataIndex: 'categoryCustomer',
-        key: 'categoryCustomer:3',
+        dataIndex: 'type',
+        key: 'type:3',
     },
     {
         title: 'Điện thoại',

@@ -8,7 +8,9 @@ const Content = ({ nameBill, activeKey }) => {
     const state = useContext(SceneReturnsContext);
     const data = state.tabs.filter((tab) => tab.key === activeKey)[0];
     // declare totalPrice
-    let totalPrice = data.products.reduce(
+    const { products, code, totalValueInvoice, fee, totalPaid } = data;
+
+    let totalPrice = products.reduce(
         (pre, current) => pre + current.totalPrice,
         0
     );
@@ -16,24 +18,24 @@ const Content = ({ nameBill, activeKey }) => {
     if (isNaN(totalPrice)) {
         totalPrice = 0;
     }
-    // declare valueSaleOff
-    let valueSaleOff = data.valueSaleOff;
-    if (isNaN(valueSaleOff)) {
-        valueSaleOff = 0;
+    // declare fee
+    let cloneFee = fee;
+    if (isNaN(cloneFee)) {
+        cloneFee = 0;
     }
     // declare totalPayment
-    let totalPayment = totalPrice - valueSaleOff;
+    let totalPayment = totalPrice - cloneFee;
     // declare totalPaid
-    let totalPaid = data.totalPaid;
+    let cloneTotalPaid = totalPaid;
 
-    if (totalPaid === 0) {
-        totalPaid = totalPayment;
-    } else if (isNaN(totalPaid)) {
-        totalPaid = 0;
+    if (cloneTotalPaid === 0) {
+        cloneTotalPaid = totalPayment;
+    } else if (isNaN(cloneTotalPaid)) {
+        cloneTotalPaid = 0;
     }
 
     //declare change
-    let change = totalPaid - totalPayment;
+    let change = cloneTotalPaid - totalPayment;
 
     const styleColLeft = {
         height: '100%',
@@ -47,29 +49,30 @@ const Content = ({ nameBill, activeKey }) => {
         padding: '0.5rem 0 0 0.5rem',
         borderLeft: '1px solid #bfbfbf',
         overflowY: 'auto',
-        overflowX:'hidden'
+        overflowX: 'hidden',
     };
 
     return useMemo(() => {
         return (
             <Row style={{ height: '100%' }}>
                 <Col span={17} style={styleColLeft}>
-                    <ListProduct dataSource={data.products} />{' '}
+                    <ListProduct dataSource={products} />
                 </Col>
                 <Col span={7} style={styleColRight}>
                     <Calculation
-                        nameBill={nameBill}
+                        nameBill={code || nameBill}
+                        totalValueInvoice={totalValueInvoice}
                         totalPrice={totalPrice}
-                        valueSaleOff={valueSaleOff}
+                        fee={cloneFee}
                         totalPayment={totalPayment}
-                        totalPaid={totalPaid}
+                        totalPaid={cloneTotalPaid}
                         change={change}
-                        products={data.products}
+                        products={products}
                     />
                 </Col>
             </Row>
         );
-    }, [totalPrice, valueSaleOff, totalPaid]);
+    }, [totalPrice, fee, totalPaid,totalValueInvoice]);
 };
 
 export default Content;

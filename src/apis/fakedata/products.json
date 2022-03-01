@@ -59,169 +59,310 @@
     "productsStockTakes": [
         {
             "_id": 1,
-            "code":"HD000001",
+            "code": "HD000001",
             "name": "Thuốc 1",
-            "inventory":80,
+            "inventory": 80,
             "costPrice": 10000
         },
         {
             "_id": 2,
-            "code":"HD000002",
+            "code": "HD000002",
             "name": "Thuốc 2",
-            "inventory":90,
+            "inventory": 90,
             "costPrice": 20000
         },
         {
             "_id": 3,
-            "code":"HD000003",
+            "code": "HD000003",
             "name": "Thuốc 3",
-            "inventory":100,
+            "inventory": 100,
             "costPrice": 30000
         },
         {
             "_id": 4,
-            "code":"HD000004",
+            "code": "HD000004",
             "name": "Thuốc 4",
-            "inventory":110,
+            "inventory": 110,
             "costPrice": 40000
         },
         {
             "_id": 5,
-            "code":"HD000005",
+            "code": "HD000005",
             "name": "Thuốc 5",
-            "inventory":120,
+            "inventory": 120,
             "costPrice": 50000
         },
         {
             "_id": 6,
-            "code":"HD000006",
+            "code": "HD000006",
             "name": "Thuốc 6",
-            "inventory":130,
+            "inventory": 130,
             "costPrice": 60000
         },
         {
             "_id": 7,
-            "code":"HD000007",
+            "code": "HD000007",
             "name": "Thuốc 7",
-            "inventory":140,
+            "inventory": 140,
             "costPrice": 70000
         },
         {
             "_id": 8,
-            "code":"HD000008",
+            "code": "HD000008",
             "name": "Thuốc 8",
-            "inventory":150,
+            "inventory": 150,
             "costPrice": 70000
         },
         {
             "_id": 9,
-            "code":"HD000009",
+            "code": "HD000009",
             "name": "Thuốc 9",
-            "inventory":160,
+            "inventory": 160,
             "costPrice": 70000
         },
         {
             "_id": 10,
-            "code":"HD000010",
+            "code": "HD000010",
             "name": "Thuốc 10",
-            "inventory":170,
+            "inventory": 170,
             "costPrice": 70000
         },
         {
             "_id": 11,
-            "code":"HD000011",
+            "code": "HD000011",
             "name": "Thuốc 11",
-            "inventory":180,
+            "inventory": 180,
             "costPrice": 70000
         }
     ],
-    "invoicesReturns":[
+    "invoicesReturns": [
         {
             "_id": 1,
-            "code":"HD000001",
-            "dateSell":"10-02-2022",
+            "code": "HD000001",
+            "dateSell": "10-02-2022",
             "nameCustomer": "Le Van Hien",
-            "phone":"0789808970",
-            "totalPayment": 10000
+            "phone": "0789808970",
+            "products": [
+                {
+                    "_id": 1,
+                    "name": "Thuốc 1",
+                    "totalNum": 2,
+                    "pricePreSaleOff": 10000,
+                    "priceSaleOff": 2000,
+                    "priceAfterSaleOff": 8000,
+                    "totalPrice": 16000
+                },
+                {
+                    "_id": 2,
+                    "name": "Thuốc 2",
+                    "totalNum": 3,
+                    "pricePreSaleOff": 20000,
+                    "priceSaleOff": 0,
+                    "priceAfterSaleOff": 20000,
+                    "totalPrice": 60000
+                }
+            ],
+            "totalPayment": 76000
         },
         {
-            "_id": 1,
-            "code":"HD000001",
-            "dateSell":"10-02-2022",
+            "_id": 2,
+            "code": "HD000002",
+            "dateSell": "10-02-2022",
             "nameCustomer": "Le Van Hien",
-            "phone":"0789808970",
+            "phone": "0789808970",
             "totalPayment": 20000
         },
         {
             "_id": 3,
-            "code":"HD000003",
-            "dateSell":"10-02-2022",
+            "code": "HD000003",
+            "dateSell": "10-02-2022",
             "nameCustomer": "Le Van Hien",
-            "phone":"0789808970",
+            "phone": "0789808970",
             "totalPayment": 30000
         },
         {
             "_id": 4,
-            "code":"HD000004",
-            "dateSell":"10-02-2022",
+            "code": "HD000004",
+            "dateSell": "10-02-2022",
             "nameCustomer": "Le Van Hien",
-            "phone":"0789808970",
+            "phone": "0789808970",
             "totalPayment": 40000
         },
         {
             "_id": 5,
-            "code":"HD000005",
-            "dateSell":"10-02-2022",
+            "code": "HD000005",
+            "dateSell": "10-02-2022",
             "nameCustomer": "Le Van Hien",
-            "phone":"0789808970",
+            "phone": "0789808970",
             "totalPayment": 50000
         },
         {
             "_id": 6,
-            "code":"HD000006",
-            "dateSell":"10-02-2022",
+            "code": "HD000006",
+            "dateSell": "10-02-2022",
             "nameCustomer": "Le Van Hien",
-            "phone":"0789808970",
+            "phone": "0789808970",
             "totalPayment": 60000
         },
         {
             "_id": 7,
-            "code":"HD000007",
-            "dateSell":"10-02-2022",
+            "code": "HD000007",
+            "dateSell": "10-02-2022",
             "nameCustomer": "Le Van Hien",
-            "phone":"0789808970",
+            "phone": "0789808970",
             "totalPayment": 70000
         },
         {
             "_id": 8,
-            "code":"HD000008",
-            "dateSell":"10-02-2022",
+            "code": "HD000008",
+            "dateSell": "10-02-2022",
             "nameCustomer": "Le Van Hien",
-            "phone":"0789808970",
+            "phone": "0789808970",
             "totalPayment": 70000
         },
         {
             "_id": 9,
-            "code":"HD000009",
-            "dateSell":"10-02-2022",
+            "code": "HD000009",
+            "dateSell": "10-02-2022",
             "nameCustomer": "Le Van Hien",
-            "phone":"0789808970",
+            "phone": "0789808970",
             "totalPayment": 70000
         },
         {
             "_id": 10,
-            "code":"HD000010",
-            "dateSell":"10-02-2022",
+            "code": "HD000010",
+            "dateSell": "10-02-2022",
             "nameCustomer": "Le Van Hien",
-            "phone":"0789808970",
+            "phone": "0789808970",
             "totalPayment": 70000
         },
         {
             "_id": 11,
-            "code":"HD000011",
-            "dateSell":"10-02-2022",
+            "code": "HD000011",
+            "dateSell": "10-02-2022",
             "nameCustomer": "Le Van Hien",
-            "phone":"0789808970",
+            "phone": "0789808970",
+            "totalPayment": 70000
+        }
+    ],
+    "invoicesPurchaseReturns": [
+        {
+            "_id": 1,
+            "key": 1,
+            "code": "HDN000001",
+            "dateBuy": "10-02-2022",
+            "nameSupplier": "Le Van Hien",
+            "phone": "0789808970",
+            "products": [
+                {
+                    "_id": 1,
+                    "name": "Thuốc 1",
+                    "totalNum": 2,
+                    "pricePreSaleOff": 10000,
+                    "priceSaleOff": 2000,
+                    "priceAfterSaleOff": 8000,
+                    "totalPrice": 16000
+                },
+                {
+                    "_id": 2,
+                    "name": "Thuốc 2",
+                    "totalNum": 3,
+                    "pricePreSaleOff": 20000,
+                    "priceSaleOff": 0,
+                    "priceAfterSaleOff": 20000,
+                    "totalPrice": 60000
+                }
+            ],
+            "totalPayment": 76000
+        },
+        {
+            "_id": 1,
+            "key": 2,
+            "code": "HDN000001",
+            "dateBuy": "10-02-2022",
+            "nameSupplier": "Le Van Hien",
+            "phone": "0789808970",
+            "totalPayment": 20000
+        },
+        {
+            "_id": 3,
+            "key": 3,
+            "code": "HDN000003",
+            "dateBuy": "10-02-2022",
+            "nameSupplier": "Le Van Hien",
+            "phone": "0789808970",
+            "totalPayment": 30000
+        },
+        {
+            "_id": 4,
+            "key": 4,
+            "code": "HDN000004",
+            "dateBuy": "10-02-2022",
+            "nameSupplier": "Le Van Hien",
+            "phone": "0789808970",
+            "totalPayment": 40000
+        },
+        {
+            "_id": 5,
+            "key": 5,
+            "code": "HDN000005",
+            "dateBuy": "10-02-2022",
+            "nameSupplier": "Le Van Hien",
+            "phone": "0789808970",
+            "totalPayment": 50000
+        },
+        {
+            "_id": 6,
+            "key": 6,
+            "code": "HDN000006",
+            "dateBuy": "10-02-2022",
+            "nameSupplier": "Le Van Hien",
+            "phone": "0789808970",
+            "totalPayment": 60000
+        },
+        {
+            "_id": 7,
+            "key": 7,
+            "code": "HDN000007",
+            "dateBuy": "10-02-2022",
+            "nameSupplier": "Le Van Hien",
+            "phone": "0789808970",
+            "totalPayment": 70000
+        },
+        {
+            "_id": 8,
+            "key": 8,
+            "code": "HDN000008",
+            "dateBuy": "10-02-2022",
+            "nameSupplier": "Le Van Hien",
+            "phone": "0789808970",
+            "totalPayment": 70000
+        },
+        {
+            "_id": 9,
+            "key": 9,
+            "code": "HDN000009",
+            "dateBuy": "10-02-2022",
+            "nameSupplier": "Le Van Hien",
+            "phone": "0789808970",
+            "totalPayment": 70000
+        },
+        {
+            "_id": 10,
+            "key": 10,
+            "code": "HDN000010",
+            "dateBuy": "10-02-2022",
+            "nameSupplier": "Le Van Hien",
+            "phone": "0789808970",
+            "totalPayment": 70000
+        },
+        {
+            "_id": 11,
+            "key": 11,
+            "code": "HDN000011",
+            "dateBuy": "10-02-2022",
+            "nameSupplier": "Le Van Hien",
+            "phone": "0789808970",
             "totalPayment": 70000
         }
     ]

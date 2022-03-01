@@ -24,18 +24,20 @@ const ListHeader = () => {
 			<Col span={2} style={styleChildCol.textCenter}>
 				STT
 			</Col>
-			<Col span={2} style={styleChildCol.textCenter}></Col>
-			<Col span={10} style={styleChildCol.textLeft}>
+			<Col span={9} style={styleChildCol.textLeft}>
 				Tên sản phẩm
 			</Col>
 			<Col span={3} style={styleChildCol.textCenter}>
-				Số lượng
-			</Col>
-			<Col span={4} style={styleChildCol.textCenter}>
-				Giá bán
+				Tổng SL
 			</Col>
 			<Col span={3} style={styleChildCol.textCenter}>
-				Tổng giá
+				SL trả
+			</Col>
+			<Col span={4} style={styleChildCol.textCenter}>
+				Giá trả
+			</Col>
+			<Col span={3} style={styleChildCol.textCenter}>
+				Thành tiền
 			</Col>
 		</Row>
 	);

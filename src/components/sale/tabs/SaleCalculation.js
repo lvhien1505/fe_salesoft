@@ -1,8 +1,8 @@
 import { useContext, useRef } from 'react';
 import { Row, Col } from 'antd';
 import ButtonCustom from 'components/ui/button/Button';
-import { InputNumber,InputTextArea } from 'components/ui/input/Input';
-import SearchCustomer from 'components/search/SearchCustomer';
+import { InputNumber, InputTextArea } from 'components/ui/input/Input';
+import AutoCompleteCustomer from 'components/auto-complete/AutoCompleteCustomer';
 import TextPrice from 'components/common/TextPrice';
 import DatePicker from 'components/common/DatePicker';
 import SaleContext from 'contexts/createContext/SaleContext';
@@ -30,12 +30,6 @@ const Field = ({ label, suffixLabel, children, styleLabel }) => {
 const FieldDiscount = ({ valueSaleOff, totalPrice }) => {
     const { changeValueSaleOff } = useContext(SaleContext);
 
-    const styleBtn = {
-        position: 'absolute',
-        top: '7px',
-        left: '-1px',
-    };
-
     const onChangeValue = (value) => {
         if (value <= 0 || isNaN(value)) {
             value = 0;
@@ -53,8 +47,8 @@ const FieldDiscount = ({ valueSaleOff, totalPrice }) => {
                     value={valueSaleOff}
                     style={{ color: '#4bac4d', fontWeight: '600' }}
                     onValueChange={(values) => onChangeValue(values.floatValue)}
+                    size="large"
                 />
-                <ButtonCustom text={'VND'} style={styleBtn} />
             </div>
         </Field>
     );
@@ -69,7 +63,7 @@ const SaleCalculation = ({
     totalPaid,
     change,
 }) => {
-    let inputRef = useRef();
+    let dateRef = useRef();
     const styleBtn = {
         width: '100%',
         padding: '1.25rem 0',
@@ -93,23 +87,29 @@ const SaleCalculation = ({
             totalPayment,
             totalPaid,
             change,
-            inputRef.current.input.value
+            dateRef.current.input.value
         );
     };
 
     return (
         <Row gutter={[0, 16]}>
             <Field label={<ButtonCustom type="secondary" text={nameBill} />}>
-                <DatePicker defaultDate={'12-06-1998 12:07'} ref={inputRef} />
+                <DatePicker
+                    defaultDate={'12-06-1998 12:07'}
+                    dateFormat="dd/MM/yyyy HH:mm"
+                    ref={dateRef}
+                    showTime={true}
+                    isCustom={true}
+                />
             </Field>
             <Field label="Bảng giá">
                 <span>Bảng giá chung</span>
             </Field>
             <Col span={24}>
-                <SearchCustomer style={{ width: '100%' }} />
+              <AutoCompleteCustomer />
             </Col>
             <Field label="Tổng tiền hàng" styleLabel={{ fontWeight: 600 }}>
-                <span style={{ fontWeight: '600' }}>
+                <span style={{ fontWeight: '600', color: '#237fcd' }}>
                     <TextPrice value={totalPrice} />
                 </span>
             </Field>
@@ -127,6 +127,7 @@ const SaleCalculation = ({
                     value={totalPaid || 0}
                     style={{ color: '#4bac4d', fontWeight: '600' }}
                     onValueChange={(values) => onChangeValue(values.floatValue)}
+                    size="large"
                 />
             </Field>
             <Field label={change >= 0 ? 'Tiền thừa' : 'Khách thiếu'}>
