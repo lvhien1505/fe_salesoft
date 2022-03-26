@@ -63,7 +63,7 @@ const Calculation = ({
     totalPaid,
     change,
 }) => {
-    let inputRef = useRef();
+    let dateRef = useRef();
     const styleBtn = {
         width: '100%',
         padding: '1.25rem 0',
@@ -87,7 +87,7 @@ const Calculation = ({
             totalPayment,
             totalPaid,
             change,
-            inputRef.current.input.value
+            dateRef.current.input.value
         );
     };
 
@@ -95,8 +95,8 @@ const Calculation = ({
         <Row gutter={[0, 16]}>
             <Field label={<ButtonCustom type="secondary" text={nameBill} />}>
                 <DatePicker
-                    defaultDate={'12-06-1998 12:07'}
-                    ref={inputRef}
+                    dateFormat="dd/MM/yyyy HH:mm"
+                    ref={dateRef}
                     showTime={true}
                     isCustom={true}
                 />

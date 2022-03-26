@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Row, Col } from 'antd';
 import GroupRadio from 'components/common/GroupRadio';
 import GroupCheckbox from 'components/common/GroupCheckbox';
@@ -7,11 +7,11 @@ import Record from 'components/common/manage/Record';
 import { ModalCategory } from '../modals/ModalCategory';
 import { InputString } from 'components/ui/input/Input';
 import Icon from 'components/ui/icon/Icon';
-import { AutoCompleteSupplier } from 'components/auto-complete/AutoCompleteSupplier';
+import ProductContext from 'contexts/createContext/ProductContext';
 
 import '../styles/filter.scss';
 
-const FilterCategoryProduct = () => {
+const FilterCategoryProduct = ({ data }) => {
     const [typeModal, setTypeModal] = useState('add');
     const [visible, setVisible] = useState(false);
     const [defaultCategory, setDefaultCategory] = useState('all');
@@ -49,62 +49,27 @@ const FilterCategoryProduct = () => {
                                 : 'item-category'
                         }
                         onClick={() => onChooseCategory('all')}
-                        tabIndex={1}
+                        tabIndex={0}
                     >
                         <span className="title">Tất cả</span>
                     </div>
-                    <div
-                        className="item-category"
-                        onClick={() => onChooseCategory('child')}
-                        tabIndex={2}
-                    >
-                        <span className="title">Thuốc lá</span>
-                        <span
-                            className="icon"
-                            onClick={() => onActiveModal('update')}
-                        >
-                            <Icon className="ri-pencil-line" />
-                        </span>
-                    </div>
-                    <div
-                        className="item-category"
-                        onClick={() => onChooseCategory('child')}
-                        tabIndex={3}
-                    >
-                        <span className="title">Sữa</span>
-                        <span
-                            className="icon"
-                            onClick={() => onActiveModal('update')}
-                        >
-                            <Icon className="ri-pencil-line" />
-                        </span>
-                    </div>
-                    <div
-                        className="item-category"
-                        onClick={() => onChooseCategory('child')}
-                        tabIndex={4}
-                    >
-                        <span className="title">Nước ngọt</span>
-                        <span
-                            className="icon"
-                            onClick={() => onActiveModal('update')}
-                        >
-                            <Icon className="ri-pencil-line" />
-                        </span>
-                    </div>
-                    <div
-                        className="item-category"
-                        onClick={() => onChooseCategory('child')}
-                        tabIndex={5}
-                    >
-                        <span className="title">Mỹ phẩm</span>
-                        <span
-                            className="icon"
-                            onClick={() => onActiveModal('update')}
-                        >
-                            <Icon className="ri-pencil-line" />
-                        </span>
-                    </div>
+                    {data.length > 0
+                        ? data.map((item, index) => (
+                              <div
+                                  className="item-category"
+                                  onClick={() => onChooseCategory('child')}
+                                  tabIndex={index + 1}
+                              >
+                                  <span className="title">{item.name}</span>
+                                  <span
+                                      className="icon"
+                                      onClick={() => onActiveModal('update')}
+                                  >
+                                      <Icon className="ri-pencil-line" />
+                                  </span>
+                              </div>
+                          ))
+                        : null}
                 </div>
             </div>
             <ModalCategory
@@ -117,6 +82,7 @@ const FilterCategoryProduct = () => {
 };
 
 const Filter = () => {
+    const { categories } = useContext(ProductContext);
     const dataTypeProduct = [
         { label: 'Hàng hóa', value: 'product' },
         { label: 'Combo - Đóng gói', value: 'combo' },
@@ -146,7 +112,7 @@ const Filter = () => {
                 </CardFilter>
             </Col>
             <Col span={24}>
-                <FilterCategoryProduct />
+                <FilterCategoryProduct data={categories} />
             </Col>
             <Col span={24}>
                 <CardFilter title="Tồn kho">
@@ -156,14 +122,7 @@ const Filter = () => {
             <Col span={24}>
                 <CardFilter title="Ngày dự kiến hết hàng"></CardFilter>
             </Col>
-            <Col span={24}>
-                <CardFilter title="Nhà cung cấp">
-                    <AutoCompleteSupplier
-                        style={{ width: '100%' }}
-                        placeholder={'Chọn nhà cung cấp'}
-                    />
-                </CardFilter>
-            </Col>
+
             <Col span={24}>
                 <CardFilter title="Lựa chọn hiển thị">
                     <GroupRadio data={dataShow} defaultValue="all" />

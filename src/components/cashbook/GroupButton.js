@@ -1,22 +1,22 @@
-import { useState } from 'react';
 import { Space } from 'antd';
 import ButtonCustom from 'components/ui/button/Button';
 import Icon from 'components/ui/icon/Icon';
 import DropdownSelectCol from 'components/common/manage/DropdownSelectCol';
-import BtnActiveModalCashIn from './modals/ModalCashIn';
-import BtnActiveModalCashOut from './modals/ModalCashOut';
+import BtnActiveModalCashBook from './modals/ModalCashBook';
 import { colsCashBook } from 'constants/columns';
 
 const GroupButton = () => {
     return (
         <Space className="btn--group">
-            <BtnActiveModalCashIn
+            <BtnActiveModalCashBook
                 text="Lập phiếu thu"
                 iconClassName="ri-file-text-fill"
+                typeAction="in"
             />
-            <BtnActiveModalCashOut
+            <BtnActiveModalCashBook
                 text="Lập phiếu chi"
                 iconClassName="ri-file-damage-fill"
+                typeAction="out"
             />
             <ButtonCustom
                 text="Xuất file"

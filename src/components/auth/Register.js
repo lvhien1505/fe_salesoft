@@ -3,9 +3,13 @@ import { Form, Row, Col } from 'antd';
 import { InputString, InputPassword } from 'components/ui/input/Input';
 import ButtonCustom from 'components/ui/button/Button';
 import Layout from './Layout';
+import authApi from 'apis/authApi';
+import openNotification from 'helpers/notification';
 
 const Register = () => {
-    const { Item } = Form;
+    const { Item, useForm } = Form;
+    let [form] = useForm();
+
     const navigate = useNavigate();
     const styleItem = {
         marginBottom: '0.75rem',
@@ -17,24 +21,47 @@ const Register = () => {
         height: '2.5rem',
         fontWeight: 600,
     };
+
+    const onSubmitForm = () => {
+        form.submit();
+    };
+
+    const onFinish = async (values) => {
+        if(values.password != values.rePassword){
+            return openNotification('error', 'Mật khẩu không chính xác');
+        }
+        try {
+            let fetch = await authApi.register(values);
+
+            openNotification('success', fetch.message);
+            navigate('/');
+        } catch (error) {
+            openNotification('error', error.response.data.message);
+        }
+    };
+
     return (
         <Layout title={'Đăng kí'} className="auth__register">
-            <Form>
-                <Item name="name" style={styleItem}>
+            <Form form={form} onFinish={onFinish}>
+                <Item name="fullName" style={styleItem}>
                     <InputString size="small" placeholder="Họ tên" />
                 </Item>
-                <Item name="username" style={styleItem}>
-                    <InputString size="small" placeholder="Tài khoản" />
+                <Item name="email" style={styleItem}>
+                    <InputString size="small" placeholder="Email" />
+                </Item>
+                <Item name="phone" style={styleItem}>
+                    <InputString size="small" placeholder="SĐT" />
                 </Item>
                 <Item name="password" style={styleItem}>
                     <InputPassword size="small" placeholder="Mật khẩu" />
                 </Item>
                 <Item name="rePassword" style={styleItem}>
-                    <InputPassword size="small" placeholder="Nhập lại mật khẩu" />
+                    <InputPassword
+                        size="small"
+                        placeholder="Nhập lại mật khẩu"
+                    />
                 </Item>
-                <Item name="email" style={styleItem}>
-                    <InputString size="small" placeholder="Email" />
-                </Item>
+
                 <Row justify="end">
                     <Col>
                         <Link to="/">Đã có tài khoản ?</Link>
@@ -47,7 +74,7 @@ const Register = () => {
                         <ButtonCustom
                             text="Đăng kí"
                             style={styleButton}
-                            onClick={() => navigate('/register')}
+                            onClick={onSubmitForm}
                         />
                     </Col>
                 </Row>

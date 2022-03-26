@@ -5,9 +5,10 @@ import Icon from 'components/ui/icon/Icon';
 import PropTypes from 'prop-types';
 import ButtonCustom from 'components/ui/button/Button';
 import ProductContext from 'contexts/createContext/ProductContext';
+import openNotification from 'helpers/notification';
 
 const ModalCategory = ({ type, visible, onCancel, ...rest }) => {
-    const { createCategory, updateCategory, categorySelected ,removeCategory} =
+    const { createCategory, updateCategory, categorySelected, removeCategory } =
         useContext(ProductContext);
 
     const Field = ({ initialValue }) => {
@@ -27,13 +28,19 @@ const ModalCategory = ({ type, visible, onCancel, ...rest }) => {
     let valueName = '';
     const onSumitForm = () => {
         valueName = form.getFieldValue('name');
-        form.setFieldsValue([{name:valueName}]);
+        form.setFieldsValue([{ name: valueName }]);
         form.submit();
     };
 
     const onFinishForm = (values) => {
         if (!valueName && type === 'update') {
             return onCancel();
+        }
+        if (!values.name) {
+            return openNotification(
+                'error',
+                'Bạn chưa nhập tên nhóm hàng'
+            );
         }
         if (type === 'add') {
             form.resetFields(['name']);
@@ -47,7 +54,7 @@ const ModalCategory = ({ type, visible, onCancel, ...rest }) => {
     };
 
     const onDelete = () => {
-        removeCategory(categorySelected.value)
+        removeCategory(categorySelected.value);
         onCancel();
     };
 

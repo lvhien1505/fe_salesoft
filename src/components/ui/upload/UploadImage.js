@@ -4,6 +4,8 @@ import ImgCrop from 'antd-img-crop';
 import PropTypes from 'prop-types';
 
 const UploadImage = ({ max, getFileList }) => {
+    let urlServer = process.env.REACT_APP_URL_SERVER;
+
     const [fileList, setFileList] = useState([]);
 
     const dummyRequest = ({ onSuccess }) => {
@@ -13,7 +15,7 @@ const UploadImage = ({ max, getFileList }) => {
     };
 
     const onChange = ({ fileList: newFileList }) => {
-		getFileList(newFileList);
+        getFileList(newFileList);
         setFileList(newFileList);
     };
 

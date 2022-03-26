@@ -47,12 +47,18 @@ const remove = async (url, id) => {
     return res.data;
 };
 
+const searchName = async (url,name) => {
+    const res = await axiosClient.post(`${url}/search?name=${name}`,{}, configs);
+    return res.data;
+};
+
 const baseApi = {
     getAll,
     getObjWithLimit,
     create,
     update,
     remove,
+    searchName
 };
 
 export default baseApi;

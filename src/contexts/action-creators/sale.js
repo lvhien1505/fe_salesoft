@@ -8,6 +8,8 @@ import {
 	CHANGE_VALUE_SALEOFF_PRODUCT,
 	CHANGE_VALUE_SALEOFF,
 	CHANGE_VALUE_PAYMENT,
+	GET_PRODUCTS,
+	RESET_TAB
 } from 'contexts/action-types/sale';
 
 export const changeActiveKey = (activeKey) => {
@@ -92,4 +94,20 @@ export const changeValuePayment = (value) => {
 		},
 	};
 };
+
+export const getProducts = (products)=>{
+	return {
+		type:GET_PRODUCTS,
+		payload:{
+			products:products
+		}
+	}
+}
+
+export const resetTab = ()=>{
+	return {
+		type:RESET_TAB,
+	}
+}
+
 

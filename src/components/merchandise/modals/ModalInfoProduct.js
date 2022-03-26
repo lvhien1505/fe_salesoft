@@ -24,6 +24,8 @@ const Field = ({ label, value }) => {
     );
 };
 const ModalInfoProduct = ({ visible, onCancel, ...rest }) => {
+    let urlServer = process.env.REACT_APP_URL_SERVER;
+
     let { productSelected } = useContext(ProductContext);
     const [visibleModalProduct, setVisibleModalProduct] = useState(false);
     let product = {};
@@ -82,6 +84,8 @@ const ModalInfoProduct = ({ visible, onCancel, ...rest }) => {
         productSelected.position
             ? (product.position = productSelected.position)
             : (product.position = '');
+
+        product.photos = productSelected.photos || [];
 
         productSelected.desciption
             ? (product.desciption = productSelected.desciption)
@@ -154,7 +158,7 @@ const ModalInfoProduct = ({ visible, onCancel, ...rest }) => {
                         <Col span={6}>
                             <Image
                                 width={200}
-                                src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                                src={`${urlServer}/images/${product.photos[0]}`}
                             />
                         </Col>
                         <Col span={18}>

@@ -1,11 +1,12 @@
 import { useContext, useState } from 'react';
-import { Modal, Row, Col, Tabs, Image, Space } from 'antd';
+import { Modal, Row, Col, Tabs, Space } from 'antd';
 import Table from 'components/common/manage/Table';
 import ButtonCustom from 'components/ui/button/Button';
 import SupplierContext from 'contexts/createContext/SupplierContext';
 import TextPrice from 'components/common/TextPrice';
 
 import '../styles/modalInfoPartner.scss';
+import { ModalSupplier } from './ModalSupplier';
 
 const Field = ({ label, value }) => {
     return (
@@ -151,6 +152,15 @@ const ModalInfoSupplier = ({ visible, onCancel, ...rest }) => {
                     <ButtonCustom text="Xóa" type="danger" onClick={onCancel} />
                 </Space>
             </Row>
+            {visibleModalSupplier ? (
+                <ModalSupplier
+                    type="update"
+                    visible={visibleModalSupplier}
+                    onCancel={() => setVisibleModalSupplier(false)}
+                    supplierUpdated={supplierSelected}
+                    withContext={true}
+                />
+            ) : null}
         </Modal>
     );
 };

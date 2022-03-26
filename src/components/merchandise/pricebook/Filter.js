@@ -1,29 +1,77 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Row, Col } from 'antd';
 import CardFilter from 'components/common/CardFilter';
 import { InputString } from 'components/ui/input/Input';
 import Icon from 'components/ui/icon/Icon';
 import Record from 'components/common/manage/Record';
-import Select from 'components/ui/select/Select';
+import PriceBookContext from 'contexts/createContext/PriceBookContext';
+import ModalTablePrice from '../modals/ModalTablePrice';
 
 import '../styles/filter.scss';
 
-const FilterTablePrice = () => {
+const FilterTablePrice = ({ data }) => {
+    const { tablePrices, selectTablePrice } = useContext(PriceBookContext);
+    const [typeModal, setTypeModal] = useState('add');
+    const [visible, setVisible] = useState(false);
+
+    const onActiveModal = (type) => {
+        setTypeModal(type);
+        setVisible(true);
+    };
+
+    const onChooseTablePrice = (tp) => {
+        selectTablePrice(tp);
+    };
     return (
         <CardFilter
             title="Bảng giá"
             suffix={
                 <Icon
-                    className="ri-add-circle-line"    
+                    className="ri-add-circle-line"
+                    onClick={() => onActiveModal('add')}
                 />
             }
         >
-            <Select mode="multiple" style={{width:'100%'}} placeholder="Chọn bảng giá"/>
+            <div className="filter-category-product">
+                <InputString
+                    placeholder="Tìm kiếm bảng giá"
+                    size="small"
+                    prefix={<Icon className="ri-search-line" />}
+                />
+                <div className="list-category">
+                    {tablePrices.length > 0
+                        ? tablePrices.map((item, index) => (
+                              <div
+                                  className="item-category"
+                                  onClick={() => onChooseTablePrice(item)}
+                                  tabIndex={index}
+                                  key={index}
+                              >
+                                  <span className="title">{item.name}</span>
+                                  <span
+                                      className="icon"
+                                      onClick={() => onActiveModal('update')}
+                                  >
+                                      <Icon className="ri-pencil-line" />
+                                  </span>
+                              </div>
+                          ))
+                        : null}
+                </div>
+            </div>
+            {visible ? (
+                <ModalTablePrice
+                    type={typeModal}
+                    visible={visible}
+                    onCancel={() => setVisible(false)}
+                />
+            ) : null}
         </CardFilter>
     );
 };
 
 const FilterCategoryProduct = () => {
+    const { categories } = useContext(PriceBookContext);
     const [defaultCategory, setDefaultCategory] = useState('all');
 
     const onChooseCategory = (type, category) => {
@@ -46,38 +94,22 @@ const FilterCategoryProduct = () => {
                                 : 'item-category'
                         }
                         onClick={() => onChooseCategory('all')}
-                        tabIndex={1}
+                        tabIndex={0}
                     >
                         <span className="title">Tất cả</span>
                     </div>
-                    <div
-                        className="item-category"
-                        onClick={() => onChooseCategory('child')}
-                        tabIndex={2}
-                    >
-                        <span className="title">Thuốc lá</span>
-                    </div>
-                    <div
-                        className="item-category"
-                        onClick={() => onChooseCategory('child')}
-                        tabIndex={3}
-                    >
-                        <span className="title">Sữa</span>
-                    </div>
-                    <div
-                        className="item-category"
-                        onClick={() => onChooseCategory('child')}
-                        tabIndex={4}
-                    >
-                        <span className="title">Nước ngọt</span>
-                    </div>
-                    <div
-                        className="item-category"
-                        onClick={() => onChooseCategory('child')}
-                        tabIndex={5}
-                    >
-                        <span className="title">Mỹ phẩm</span>
-                    </div>
+                    {categories.length > 0
+                        ? categories.map((item, index) => (
+                              <div
+                                  className="item-category"
+                                  onClick={() => onChooseCategory('child')}
+                                  tabIndex={index + 1}
+                                  key={index + 1}
+                              >
+                                  <span className="title">{item.name}</span>
+                              </div>
+                          ))
+                        : null}
                 </div>
             </div>
         </CardFilter>
@@ -94,7 +126,7 @@ const Filter = () => {
                 <FilterCategoryProduct />
             </Col>
             <Col span={24}>
-                <Record/>
+                <Record />
             </Col>
         </Row>
     );

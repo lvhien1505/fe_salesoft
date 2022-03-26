@@ -44,6 +44,20 @@ const SupplierState = ({ children }) => {
         }
     };
 
+    const updateSupplier = async (id, supplier) => {
+        try {
+            let fetch = await supplierApi.update(id, supplier);
+
+            if (fetch.status) {
+                getSuppliersWithLimit();
+                onSelectSupplier(fetch.data)
+                openNotification('success', fetch.message);
+            }
+        } catch (error) {
+            openNotification('error', 'Lỗi máy chủ');
+        }
+    };
+
     const onSelectSupplier = (supplier) => {
         dispatch(selectSupplier(supplier));
     };
@@ -58,6 +72,7 @@ const SupplierState = ({ children }) => {
                 suppliers: state.suppliers,
                 selectSupplier:onSelectSupplier,
                 createSupplier:createSupplier,
+                updateSupplier:updateSupplier,
                 supplierSelected:state.supplierSelected
             }}
         >

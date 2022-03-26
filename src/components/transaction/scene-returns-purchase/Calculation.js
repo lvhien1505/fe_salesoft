@@ -71,7 +71,7 @@ const Calculation = ({
     totalPaid,
     change,
 }) => {
-    let inputRef = useRef();
+    let dateRef = useRef();
     const { changeTotalPaid } = useContext(SceneReturnsPurchaseContext);
     const styleBtn = {
         width: '100%',
@@ -84,13 +84,18 @@ const Calculation = ({
     };
 
     const onFinish = () => {
-        console.log(inputRef.current.input.value);
+        console.log(dateRef.current.input.value);
     };
 
     return (
         <Row gutter={[0, 16]}>
             <Field label="Ngày trả hàng">
-                <DatePicker defaultDate={'12-06-1998 12:07'} ref={inputRef} />
+                <DatePicker
+                    dateFormat="dd/MM/yyyy HH:mm"
+                    ref={dateRef}
+                    showTime={true}
+                    isCustom={true}
+                />
             </Field>
             <Field label="Nhà cung cấp">
                 <span>0</span>
@@ -113,10 +118,7 @@ const Calculation = ({
                     <TextPrice value={totalPrice} />
                 </span>
             </Field>
-            <FieldDiscount
-                valueSaleOff={fee}
-                totalPrice={totalPrice}
-            />
+            <FieldDiscount valueSaleOff={fee} totalPrice={totalPrice} />
             <Field label="NCC cần trả" styleLabel={{ fontWeight: 600 }}>
                 <span style={{ fontWeight: 600 }}>
                     <TextPrice value={totalPayment} />

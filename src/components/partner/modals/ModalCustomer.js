@@ -4,7 +4,6 @@ import { Row, Col, Form, Modal, Space } from 'antd';
 import {
     FieldInput,
     FieldRadio,
-    FieldSelect,
 } from 'components/ui/form/FormField';
 import ButtonCustom from 'components/ui/button/Button';
 import DatePicker from 'components/common/DatePicker';
@@ -15,6 +14,7 @@ import {
     AutoCompleteSubDistrict,
 } from 'components/auto-complete/AutoCompleteAddress';
 import CustomerContext from 'contexts/createContext/CustomerContext';
+import openNotification from 'helpers/notification';
 
 const FakeContext = createContext({});
 
@@ -38,18 +38,30 @@ const ModalCustomer = ({
     customerUpdated,
     visible,
     onCancel,
+    onFinishAdd,
     ...rest
 }) => {
     const { useForm } = Form;
     let dateRef = useRef();
-    let action = null;
+    let actionCreate = null;
+    let actionUpdate = null;
     let state = useContext(withContext ? CustomerContext : FakeContext);
+    const initialValueForm =
+        type === 'update'
+            ? {
+                  phone1: customerUpdated.phone[0],
+                  phone2: customerUpdated.phone[1],
+                  ...customerUpdated,
+              }
+            : {
+                  sex: 'male',
+                  type: 'person',
+              };
     if (withContext) {
-        action = state.createCustomer;
+        actionCreate = state.createCustomer;
+        actionUpdate = state.updateCustomer;
     } else {
-        action = (values) => {
-            console.log(values);
-        };
+        actionCreate = onFinishAdd;
     }
     const [formCustomer] = useForm();
     const [typeCustomer, setTypeCustomer] = useState(
@@ -112,8 +124,15 @@ const ModalCustomer = ({
         values.district = districtSelected;
         values.subDistrict = subDistrictSelected;
         values.phone = [values.phone1, values.phone2];
-
-        action(values);
+        if (!values.name) {
+            return openNotification('error', 'Vui lòng nhập tên khách hàng');
+        }
+        if (type === 'add') {
+            actionCreate(values);
+        } else {
+            values.code = customerUpdated.code;
+            actionUpdate(customerUpdated._id, values);
+        }
         onCancel();
     };
 
@@ -135,10 +154,7 @@ const ModalCustomer = ({
             <Form
                 form={formCustomer}
                 onFinish={onFinishForm}
-                initialValues={{
-                    sex: 'male',
-                    type: 'person',
-                }}
+                initialValues={initialValueForm}
             >
                 <Row justify="space-between" gutter={[36, 8]}>
                     <Col span={12}>
@@ -264,7 +280,6 @@ const ModalCustomer = ({
                                     : ''
                             }
                         />
-                        <FieldSelect label="Nhóm" name="group" />
                         <FieldInput
                             label="Ghi chú"
                             name="note"
@@ -294,6 +309,7 @@ const BtnActiveModalCustomer = ({
     withContext,
     iconClassName,
     type,
+    onFinishAdd,
     ...rest
 }) => {
     const [visible, setVisible] = useState(false);
@@ -319,6 +335,7 @@ const BtnActiveModalCustomer = ({
                     visible={visible}
                     onCancel={() => setVisible(false)}
                     withContext={withContext}
+                    onFinishAdd={onFinishAdd}
                 />
             ) : null}
         </>

@@ -5,6 +5,7 @@ import Icon from 'components/ui/icon/Icon';
 import PropTypes from 'prop-types';
 import ButtonCustom from 'components/ui/button/Button';
 import ProductContext from 'contexts/createContext/ProductContext';
+import openNotification from 'helpers/notification';
 
 const ModalBrand = ({ type, visible, onCancel, ...rest }) => {
     const { createBrand, updateBrand, brandSelected ,removeBrand} =
@@ -34,6 +35,12 @@ const ModalBrand = ({ type, visible, onCancel, ...rest }) => {
     const onFinishForm = (values) => {
         if (!valueName && type === 'update') {
             return onCancel();
+        }
+        if (!values.name) {
+            return openNotification(
+                'error',
+                'Bạn chưa nhập tên thương hiệu'
+            );
         }
         if (type === 'add') {
             form.resetFields(['name']);

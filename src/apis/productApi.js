@@ -47,12 +47,15 @@ const create = async (data) => {
         bodyFormData,
         configs
     );
-    return res;
+    return res.data;
 };
+
+const update = async (id, data) => await baseApi.update(baseRoute, id, data);
 
 const productApi = {
     getProductsWithLimit,
     create,
+    update
 };
 
 export default productApi;

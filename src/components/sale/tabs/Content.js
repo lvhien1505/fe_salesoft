@@ -4,7 +4,7 @@ import ListProduct from './ListProduct';
 import SaleCalculation from './SaleCalculation';
 import SaleContext from 'contexts/createContext/SaleContext';
 
-const Content = ({ nameBill, activeKey }) => {
+const Content = ({ nameBill, activeKey,onRemovePane }) => {
     const state = useContext(SaleContext);
     const data = state.tabs.filter((tab) => tab.key === activeKey)[0];
     // declare totalPrice
@@ -50,6 +50,10 @@ const Content = ({ nameBill, activeKey }) => {
         overflowX:'hidden'
     };
 
+    const onHandleRemovePane = ()=>{
+        onRemovePane(activeKey)
+    }
+
     return useMemo(() => {
         return (
             <Row style={{ height: '100%' }}>
@@ -65,6 +69,8 @@ const Content = ({ nameBill, activeKey }) => {
                         totalPaid={totalPaid}
                         change={change}
                         products={data.products}
+                        onRemovePane={onHandleRemovePane}
+                        isRemovedPanel={state.tabs.length > 1 ? true : false}
                     />
                 </Col>
             </Row>

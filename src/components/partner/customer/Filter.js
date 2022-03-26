@@ -1,25 +1,7 @@
-import { useState } from 'react';
 import { Row, Col } from 'antd';
 import GroupRadio from 'components/common/GroupRadio';
 import CardFilter from 'components/common/CardFilter';
-import Select from 'components/ui/select/Select';
-import Icon from 'components/ui/icon/Icon';
 import Record from 'components/common/manage/Record';
-
-const FilterGroupCustomer = () => {
-    return (
-        <CardFilter
-            title="Nhóm khách hàng"
-            suffix={<Icon className="ri-add-circle-line" />}
-        >
-            <Select
-                style={{ width: '100%' }}
-                placeholder="Tất cả các nhóm"
-                suffixIcon={false}
-            />
-        </CardFilter>
-    );
-};
 
 const Filter = () => {
     const dataTypeCustomer = [
@@ -41,9 +23,6 @@ const Filter = () => {
     ];
     return (
         <Row gutter={[0, 16]}>
-            <Col span={24}>
-                <FilterGroupCustomer />
-            </Col>
             <Col span={24}>
                 <CardFilter title="Ngày tạo"></CardFilter>
             </Col>
@@ -78,7 +57,7 @@ const Filter = () => {
                 </CardFilter>
             </Col>
             <Col span={24}>
-                <Record/>
+                <Record />
             </Col>
         </Row>
     );

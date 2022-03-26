@@ -1,4 +1,4 @@
-import { useContext, useRef } from 'react';
+import { useContext, useRef, useState } from 'react';
 import { Row, Col } from 'antd';
 import ButtonCustom from 'components/ui/button/Button';
 import { InputNumber, InputTextArea } from 'components/ui/input/Input';
@@ -6,6 +6,7 @@ import AutoCompleteCustomer from 'components/auto-complete/AutoCompleteCustomer'
 import TextPrice from 'components/common/TextPrice';
 import DatePicker from 'components/common/DatePicker';
 import SaleContext from 'contexts/createContext/SaleContext';
+import openNotification from 'helpers/notification';
 
 const Field = ({ label, suffixLabel, children, styleLabel }) => {
     const style = {
@@ -62,15 +63,23 @@ const SaleCalculation = ({
     totalPayment,
     totalPaid,
     change,
+    onRemovePane,
+    isRemovedPanel
 }) => {
     let dateRef = useRef();
+    let inputTextareaRef = useRef();
     const styleBtn = {
         width: '100%',
         padding: '1.25rem 0',
         borderRadius: '0.25rem',
     };
 
-    const { changeValuePayment } = useContext(SaleContext);
+    const [idCustomer, setIdCustomer] = useState('');
+    const { changeValuePayment, createInvoice,resetTab } = useContext(SaleContext);
+
+    const getOption = (option) => {
+        setIdCustomer(option._id);
+    };
 
     const onChangeValue = (value) => {
         if (value <= 0 || isNaN(value)) {
@@ -80,22 +89,37 @@ const SaleCalculation = ({
     };
 
     const onFinish = () => {
-        console.log(
+        if (products.length === 0) {
+            return openNotification('error', 'Bạn chưa chọn sản phẩm');
+        }
+
+        let dateSell = dateRef.current.input.value;
+        dateSell = dateSell.split('/').join('-');
+        const invoice = {
             products,
+            dateSell,
+            customer: idCustomer,
+            hasCustomer: idCustomer ? true : false,
             totalPrice,
-            valueSaleOff,
+            saleOff: valueSaleOff,
             totalPayment,
             totalPaid,
             change,
-            dateRef.current.input.value
-        );
+            note: inputTextareaRef.current.resizableTextArea.textArea.value,
+        };
+
+        createInvoice(invoice);
+        if (isRemovedPanel) {
+            onRemovePane();
+        }else{
+            resetTab();
+        }
     };
 
     return (
         <Row gutter={[0, 16]}>
             <Field label={<ButtonCustom type="secondary" text={nameBill} />}>
                 <DatePicker
-                    defaultDate={'12-06-1998 12:07'}
                     dateFormat="dd/MM/yyyy HH:mm"
                     ref={dateRef}
                     showTime={true}
@@ -106,7 +130,7 @@ const SaleCalculation = ({
                 <span>Bảng giá chung</span>
             </Field>
             <Col span={24}>
-              <AutoCompleteCustomer />
+                <AutoCompleteCustomer getOption={getOption} />
             </Col>
             <Field label="Tổng tiền hàng" styleLabel={{ fontWeight: 600 }}>
                 <span style={{ fontWeight: '600', color: '#237fcd' }}>
@@ -136,7 +160,11 @@ const SaleCalculation = ({
                 </span>
             </Field>
             <Col span={24}>
-                <InputTextArea placeholder="Ghi chú" size="small" />
+                <InputTextArea
+                    placeholder="Ghi chú"
+                    size="small"
+                    ref={inputTextareaRef}
+                />
             </Col>
             <Col span={24}>
                 <Row align="middle" gutter={[8, 8]}>

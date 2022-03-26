@@ -18,6 +18,24 @@
         left: 0.25rem;
     }
 
+    .wrapper-autocomplete{
+        position: relative;
+    
+        .content-value{
+            position: absolute;
+            background-color: #dee2e6;
+            top: 0.375rem;
+            left: 1.5rem;
+            padding: 0 0.75rem;
+            border-radius: 0.25rem;
+
+            span.icon-clear:hover{
+                color: #fff;
+                cursor: pointer;
+            }
+        }
+    }
+
     .modal-customer,.modal-supplier {
         position: absolute;
         top: 0.25rem;
@@ -49,3 +67,5 @@
         left: 0.375rem;
     }
 }
+
+

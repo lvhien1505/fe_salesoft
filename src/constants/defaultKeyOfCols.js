@@ -14,9 +14,9 @@ export const keyOfColsProduct = [
 export const keyOfColsPriceBook = [
     'code:1',
     'name:2',
+    'inventory:3',
     'costPrice:4',
-    'priceLastPurchase:5',
-    'price:6',
+    'price:5',
 ];
 
 //end pricebook

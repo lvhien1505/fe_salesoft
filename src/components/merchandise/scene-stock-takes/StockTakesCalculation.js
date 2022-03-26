@@ -19,7 +19,7 @@ const Field = ({ label, suffixLabel, children, styleLabel }) => {
     return (
         <Col span={24}>
             <Row align="middle" justify="space-between" gutter={[0, 8]}>
-                <Col >
+                <Col>
                     <Space>
                         <span style={styleLabel}>{label}</span>
                         {suffixLabel ? (
@@ -27,9 +27,7 @@ const Field = ({ label, suffixLabel, children, styleLabel }) => {
                         ) : null}
                     </Space>
                 </Col>
-                <Col style={style}>
-                    {children}
-                </Col>
+                <Col style={style}>{children}</Col>
             </Row>
         </Col>
     );
@@ -44,7 +42,7 @@ const SaleCalculation = ({
     totalValueDiffDesc,
     totalValueDiff,
 }) => {
-    let inputRef = useRef();
+    let dateRef = useRef();
     const styleBtn = {
         width: '100%',
         padding: '1.25rem 0',
@@ -52,13 +50,19 @@ const SaleCalculation = ({
     };
 
     const onFinish = () => {
-        console.log(inputRef.current.input.value);
+        console.log(dateRef.current.input.value);
     };
 
     return (
         <Row gutter={[0, 16]}>
             <Field label="Ngày kiểm">
-                <DatePicker defaultDate={'12-06-1998 12:07'} ref={inputRef} />
+                <DatePicker
+                    defaultDate={'12-06-1998 12:07'}
+                    dateFormat="dd/MM/yyyy HH:mm"
+                    ref={dateRef}
+                    showTime={true}
+                    isCustom={true}
+                />
             </Field>
             <Field label="Mã kiểm kho">
                 <span>0</span>

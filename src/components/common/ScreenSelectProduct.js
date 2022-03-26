@@ -11,7 +11,7 @@ import './styles/screenManageProduct.scss';
 const ScreenSelectProduct = ({ buttonProps, children }) => {
     const [visible, setVisible] = useState(false);
     const styleResizePanel = {
-        width: '100%',
+        width: '50%',
         borderLeft: '2px solid #bfbfbf',
         backgroundColor: '#fff',
         boxShadow: `0 0.46875rem 2.1875rem rgba(31, 10, 6, 0.03),
@@ -55,7 +55,7 @@ const ScreenSelectProduct = ({ buttonProps, children }) => {
                 }
             >
                 <div
-                    style={{ width: '100%', height: '100%' }}
+                    style={{ width: '50%', height: '100%' }}
                     onClick={turnOffScreen}
                 ></div>
                 <ResizePanel
@@ -67,15 +67,6 @@ const ScreenSelectProduct = ({ buttonProps, children }) => {
                         <Row justify="space-between">
                             <Col>
                                 <Space>
-                                    <ButtonModal
-                                        iconProps={{
-                                            className: 'ri-add-line',
-                                        }}
-                                        buttonProps={{
-                                            type: 'primary',
-                                        }}
-                                        btnDefault={false}
-                                    />
                                     <ButtonModal
                                         iconProps={{
                                             className: 'ri-filter-line',

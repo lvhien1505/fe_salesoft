@@ -570,6 +570,7 @@ const ModalProduct = ({ type, productUpdated, visible, onCancel, ...rest }) => {
     const [units, setUnits] = useState({});
     const {
         createProduct,
+        updateProduct,
         categories,
         brands,
         categorySelected,
@@ -577,6 +578,22 @@ const ModalProduct = ({ type, productUpdated, visible, onCancel, ...rest }) => {
         selectCategory,
         selectBrand,
     } = useContext(ProductContext);
+
+    const initialValueForm =
+        type === 'update'
+            ? {
+                  ...productUpdated,
+                  category: productUpdated.category._id,
+              }
+            : {
+                  type: 'product',
+                  inventory: 0,
+                  costPrice: 0,
+                  price: 0,
+                  weight: 0,
+                  lessEstimate: 0,
+                  moreEstimate: 999999,
+              };
 
     let cloneCategories = [...categories];
     let cloneBrands = [...brands];
@@ -694,7 +711,9 @@ const ModalProduct = ({ type, productUpdated, visible, onCancel, ...rest }) => {
     };
 
     const onFinishForm = (values) => {
-        values.category = categorySelected.value;
+        if (categorySelected.value) {
+            values.category = categorySelected.value;
+        }
         if (!values.category) {
             return openNotification('error', 'Bạn chưa chọn nhóm hàng');
         }
@@ -742,7 +761,16 @@ const ModalProduct = ({ type, productUpdated, visible, onCancel, ...rest }) => {
         values.attributes = attributes;
         values.units = units;
 
-        createProduct(values);
+        if (type === 'add') {
+            createProduct(values);
+        }
+        if (type === 'update') {
+            values.code = productUpdated.code;
+            delete values.photos;
+
+            updateProduct(productUpdated._id, values);
+        }
+
         onCancel();
     };
 
@@ -763,15 +791,7 @@ const ModalProduct = ({ type, productUpdated, visible, onCancel, ...rest }) => {
             <Form
                 form={formProduct}
                 onFinish={onFinishForm}
-                initialValues={{
-                    type: 'product',
-                    inventory: 0,
-                    costPrice: 0,
-                    price: 0,
-                    weight: 0,
-                    lessEstimate: 0,
-                    moreEstimate: 999999,
-                }}
+                initialValues={initialValueForm}
             >
                 <Tabs centered style={styles}>
                     <TabPane tab="Thông tin" key="1">
@@ -794,7 +814,10 @@ const ModalProduct = ({ type, productUpdated, visible, onCancel, ...rest }) => {
                                         onSelect={onSelectCategory}
                                         value={
                                             type === 'update'
-                                                ? productUpdated.category._id
+                                                ? categorySelected.value
+                                                    ? categorySelected.value
+                                                    : productUpdated.category
+                                                          ._id
                                                 : categorySelected.value
                                         }
                                     />
@@ -885,16 +908,18 @@ const ModalProduct = ({ type, productUpdated, visible, onCancel, ...rest }) => {
                                 />
                             </Col>
                         </Row>
-                        <Row style={{ marginTop: '1rem' }}>
-                            <Col span={24}>
-                                <Item name="photos">
-                                    <UploadImage
-                                        max={5}
-                                        getFileList={getFileList}
-                                    />
-                                </Item>
-                            </Col>
-                        </Row>
+                        {type === 'add' ? (
+                            <Row style={{ marginTop: '1rem' }}>
+                                <Col span={24}>
+                                    <Item name="photos">
+                                        <UploadImage
+                                            max={1}
+                                            getFileList={getFileList}
+                                        />
+                                    </Item>
+                                </Col>
+                            </Row>
+                        ) : null}
                         <Row style={{ marginTop: '1rem' }}>
                             <Col span={24}>
                                 <PropCollapseCustom
@@ -1017,11 +1042,13 @@ const BtnActiveModalProduct = ({ text, iconClassName, type, ...rest }) => {
                 onClick={() => setVisible(true)}
                 {...rest}
             />
-            <ModalProduct
-                type="add"
-                visible={visible}
-                onCancel={() => setVisible(false)}
-            />
+            {visible ? (
+                <ModalProduct
+                    type="add"
+                    visible={visible}
+                    onCancel={() => setVisible(false)}
+                />
+            ) : null}
         </>
     );
 };

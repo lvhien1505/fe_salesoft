@@ -36,7 +36,7 @@ const FieldInputNumber = ({ initialValue, ...rest }) => {
     );
 };
 
-const FieldSelect = ({ initialValue, options, value, onSelect, ...rest }) => {
+const FieldSelect = ({options, value, onSelect, ...rest }) => {
     return (
         <FormField {...rest}>
             <Select
@@ -45,6 +45,7 @@ const FieldSelect = ({ initialValue, options, value, onSelect, ...rest }) => {
                 options={options || []}
                 onSelect={onSelect}
                 value={value || null}
+                
             />
         </FormField>
     );

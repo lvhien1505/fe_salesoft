@@ -44,6 +44,20 @@ const CustomerState = ({ children }) => {
         }
     };
 
+    const updateCustomer = async (id, customer) => {
+        try {
+            let fetch = await customerApi.update(id, customer);
+
+            if (fetch.status) {
+                getCustomersWithLimit();
+                onSelectCustomer(fetch.data)
+                openNotification('success', fetch.message);
+            }
+        } catch (error) {
+            openNotification('error', 'Lỗi máy chủ');
+        }
+    };
+
     const onSelectCustomer = (customer) => {
         dispatch(selectCustomer(customer));
     };
@@ -56,9 +70,10 @@ const CustomerState = ({ children }) => {
         <CustomerContext.Provider
             value={{
                 customers: state.customers,
-                selectCustomer:onSelectCustomer,
-                createCustomer:createCustomer,
-                customerSelected:state.customerSelected
+                selectCustomer: onSelectCustomer,
+                createCustomer: createCustomer,
+                updateCustomer:updateCustomer,
+                customerSelected: state.customerSelected,
             }}
         >
             {children}

@@ -106,9 +106,9 @@ const ProductState = ({ children }) => {
         }
     };
 
-    const createBrand = async (category) => {
+    const createBrand = async (brand) => {
         try {
-            let fetch = await brandApi.create(category);
+            let fetch = await brandApi.create(brand);
 
             if (fetch.status) {
                 getBrandProduct();
@@ -184,6 +184,21 @@ const ProductState = ({ children }) => {
         }
     };
 
+    const updateProduct = async (id, product) => {
+        try {
+            let fetch = await productApi.update(id, product);
+
+            if (fetch.status) {
+                console.log(fetch.data,'state')
+                getProductsWithLimit();
+                onSelectProduct(fetch.data);
+                openNotification('success', fetch.message);
+            }
+        } catch (error) {
+            openNotification('error', 'Lỗi máy chủ');
+        }
+    };
+
     const onSelectProduct = (product) => {
         dispatch(selectProduct(product));
     };
@@ -200,11 +215,12 @@ const ProductState = ({ children }) => {
                 products: state.products,
                 categories: state.categories,
                 brands: state.brands,
-                productSelected:state.productSelected,
+                productSelected: state.productSelected,
                 categorySelected: state.categorySelected,
                 brandSelected: state.brandSelected,
                 createProduct: createProduct,
-                selectProduct:onSelectProduct,
+                selectProduct: onSelectProduct,
+                updateProduct: updateProduct,
                 createCategory: createCategory,
                 updateCategory: updateCategory,
                 removeCategory: removeCategory,

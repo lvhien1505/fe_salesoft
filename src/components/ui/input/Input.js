@@ -4,7 +4,7 @@ import InputNumberFormat from 'react-currency-format';
 import Icon from 'components/ui/icon/Icon';
 import './input.scss';
 
-const InputString = forwardRef(({ size, ...rest },ref) => {
+const InputString = forwardRef(({ size, ...rest }, ref) => {
     return (
         <Input
             bordered={false}
@@ -40,7 +40,7 @@ const InputNumber = ({ size, ...rest }) => {
     );
 };
 
-const InputTextArea = ({ size, ...rest }) => {
+const InputTextArea = forwardRef(({ size, ...rest }, ref) => {
     return (
         <div className="textarea--format">
             <div className="icon">
@@ -51,10 +51,11 @@ const InputTextArea = ({ size, ...rest }) => {
                 size={size || 'large'}
                 autoSize={{ minRows: 1, maxRows: 5 }}
                 className="input--format"
+                ref={ref}
                 {...rest}
             />
         </div>
     );
-};
+});
 
 export { InputString, InputPassword, InputNumber, InputTextArea };

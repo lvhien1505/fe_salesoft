@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { Modal, Row, Col, Tabs, Image, Space } from 'antd';
+import { Modal, Row, Col, Tabs, Space } from 'antd';
 import Table from 'components/common/manage/Table';
 import ButtonCustom from 'components/ui/button/Button';
 import CustomerContext from 'contexts/createContext/CustomerContext';
@@ -175,6 +175,7 @@ const ModalInfoCustomer = ({ visible, onCancel, ...rest }) => {
                     visible={visibleModalCustomer}
                     onCancel={() => setVisibleModalCustomer(false)}
                     customerUpdated={customerSelected}
+                    withContext={true}
                 />
             ) : null}
         </Modal>

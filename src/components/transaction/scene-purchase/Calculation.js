@@ -5,6 +5,7 @@ import { InputTextArea, InputNumber } from 'components/ui/input/Input';
 import TextPrice from 'components/common/TextPrice';
 import DatePicker from 'components/common/DatePicker';
 import ScenePurchaseContext from 'contexts/createContext/ScenePurchaseContext';
+import AutoCompleteSupplier from 'components/auto-complete/AutoCompleteSupplier';
 
 const Field = ({ label, suffixLabel, children, styleLabel }) => {
     styleLabel = { fontSize: '0.875rem', ...styleLabel };
@@ -39,12 +40,6 @@ const Field = ({ label, suffixLabel, children, styleLabel }) => {
 const FieldDiscount = ({ valueSaleOff, totalPrice }) => {
     const { changeValueSaleOff } = useContext(ScenePurchaseContext);
 
-    const styleBtn = {
-        position: 'absolute',
-        top: '7px',
-        left: '-1px',
-    };
-
     const onChangeValue = (value) => {
         if (value <= 0 || isNaN(value)) {
             value = 0;
@@ -57,15 +52,12 @@ const FieldDiscount = ({ valueSaleOff, totalPrice }) => {
 
     return (
         <Field label="Giảm giá">
-            <div style={{ position: 'relative' }}>
-                <InputNumber
-                    value={valueSaleOff}
-                    style={{ color: '#4bac4d', fontWeight: '600' }}
-                    onValueChange={(values) => onChangeValue(values.floatValue)}
-                    size="small"
-                />
-                <ButtonCustom text={'VND'} style={styleBtn} />
-            </div>
+            <InputNumber
+                value={valueSaleOff}
+                style={{ color: '#4bac4d', fontWeight: '600' }}
+                onValueChange={(values) => onChangeValue(values.floatValue)}
+                size="small"
+            />
         </Field>
     );
 };
@@ -77,7 +69,7 @@ const Calculation = ({
     totalPaid,
     change,
 }) => {
-    let inputRef = useRef();
+    let dateRef = useRef();
     const { changeValuePayment } = useContext(ScenePurchaseContext);
     const styleBtn = {
         width: '100%',
@@ -90,17 +82,23 @@ const Calculation = ({
     };
 
     const onFinish = () => {
-        console.log(inputRef.current.input.value);
+        console.log(dateRef.current.input.value);
     };
 
     return (
         <Row gutter={[0, 16]}>
             <Field label="Ngày nhập">
-                <DatePicker defaultDate={'12-06-1998 12:07'} ref={inputRef} />
+                <DatePicker
+                    defaultDate={'12-06-1998 12:07'}
+                    dateFormat="dd/MM/yyyy HH:mm"
+                    ref={dateRef}
+                    showTime={true}
+                    isCustom={true}
+                />
             </Field>
-            <Field label="Khách hàng">
-                <span>0</span>
-            </Field>
+            <Col span={24}>
+                <AutoCompleteSupplier />
+            </Col>
             <Field label="Trạng thái">
                 <span>Phiếu tạm</span>
             </Field>

@@ -1,9 +1,7 @@
-import { useState,useContext } from 'react';
+import { useState, useContext, createContext } from 'react';
+import PropTypes from 'prop-types';
 import { Row, Col, Form, Modal, Space } from 'antd';
-import {
-    FieldInput,
-    FieldSelect,
-} from 'components/ui/form/FormField';
+import { FieldInput } from 'components/ui/form/FormField';
 import ButtonCustom from 'components/ui/button/Button';
 import Icon from 'components/ui/icon/Icon';
 import {
@@ -12,6 +10,9 @@ import {
     AutoCompleteSubDistrict,
 } from 'components/auto-complete/AutoCompleteAddress';
 import SupplierContext from 'contexts/createContext/SupplierContext';
+import openNotification from 'helpers/notification';
+
+const FakeContext = createContext({});
 
 const FieldCustom = ({ label, name, children }) => {
     const { Item } = Form;
@@ -27,14 +28,44 @@ const FieldCustom = ({ label, name, children }) => {
     );
 };
 
-const ModalCustomer = ({ type, visible, onCancel, ...rest }) => {
+const ModalSupplier = ({
+    type,
+    withContext,
+    supplierUpdated,
+    visible,
+    onCancel,
+    ...rest
+}) => {
     const { useForm } = Form;
-    let { createSupplier } = useContext(SupplierContext);
-
+    let actionCreate = null;
+    let actionUpdate = null;
+    let state = useContext(withContext ? SupplierContext : FakeContext);
+    const initialValueForm =
+        type === 'update'
+            ? {
+                  phone1: supplierUpdated.phone[0],
+                  phone2: supplierUpdated.phone[1],
+                  ...supplierUpdated,
+              }
+            : {};
+    if (withContext) {
+        actionCreate = state.createSupplier;
+        actionUpdate = state.updateSupplier;
+    } else {
+        actionCreate = (values) => {
+            console.log(values);
+        };
+    }
     const [formSupplier] = useForm();
-    const [citySelected, setCitySelected] = useState('');
-    const [districtSelected, setDistrictSelected] = useState('');
-    const [subDistrictSelected, setSubDistrictSelected] = useState('');
+    const [citySelected, setCitySelected] = useState(
+        type === 'update' ? supplierUpdated.city : ''
+    );
+    const [districtSelected, setDistrictSelected] = useState(
+        type === 'update' ? supplierUpdated.district : ''
+    );
+    const [subDistrictSelected, setSubDistrictSelected] = useState(
+        type === 'update' ? supplierUpdated.subDistrict : ''
+    );
     const [cityCodeSelected, setCityCodeSelected] = useState('');
     const [districtCodeSelected, setDistrictCodeSelected] = useState('');
 
@@ -56,13 +87,21 @@ const ModalCustomer = ({ type, visible, onCancel, ...rest }) => {
         formSupplier.submit();
     };
 
-    const onFinishForm =async (values) => {
+    const onFinishForm = async (values) => {
         values.city = citySelected;
         values.district = districtSelected;
         values.subDistrict = subDistrictSelected;
         values.phone = [values.phone1, values.phone2];
-        
-        createSupplier(values);
+
+        if (!values.name) {
+            return openNotification('error', 'Vui lòng nhập tên nhà cung cấp');
+        }
+        if (type === 'add') {
+            actionCreate(values);
+        } else {
+            values.code = supplierUpdated.code;
+            actionUpdate(supplierUpdated._id, values);
+        }
         onCancel();
     };
 
@@ -77,20 +116,56 @@ const ModalCustomer = ({ type, visible, onCancel, ...rest }) => {
             bodyStyle={{ paddingTop: '0.5rem' }}
             {...rest}
         >
-            <Form form={formSupplier} onFinish={onFinishForm}>
+            <Form
+                form={formSupplier}
+                onFinish={onFinishForm}
+                initialValues={initialValueForm}
+            >
                 <Row justify="space-between" gutter={[36, 8]}>
                     <Col span={12}>
-                        <FieldInput label="Tên NCC" name="name" />
-                        <FieldInput label="Điện thoại" name="phone1" />
-                        <FieldInput label="" name="phone2" />
-                        <FieldInput label="Địa chỉ" name="address" />
+                        <FieldInput
+                            label="Tên NCC"
+                            name="name"
+                            initialValue={
+                                type === 'update' ? supplierUpdated.name : ''
+                            }
+                        />
+                        <FieldInput
+                            label="Điện thoại"
+                            name="phone1"
+                            initialValue={
+                                type === 'update'
+                                    ? supplierUpdated.phone[0]
+                                    : ''
+                            }
+                        />
+                        <FieldInput
+                            label=""
+                            name="phone2"
+                            initialValue={
+                                type === 'update'
+                                    ? supplierUpdated.phone[1]
+                                    : ''
+                            }
+                        />
+                        <FieldInput
+                            label="Địa chỉ"
+                            name="address"
+                            initialValue={
+                                type === 'update' ? supplierUpdated.address : ''
+                            }
+                        />
                         <FieldCustom label="Tỉnh/Thành phố">
-                            <AutoCompleteCity onSelect={onSelectCity} />
+                            <AutoCompleteCity
+                                onSelect={onSelectCity}
+                                defaultValue={citySelected}
+                            />
                         </FieldCustom>
                         <FieldCustom label="Quận/Huyện">
                             <AutoCompleteDistrict
                                 parentCode={cityCodeSelected}
                                 onSelect={onSelectDistrict}
+                                defaultValue={districtSelected}
                             />
                         </FieldCustom>
 
@@ -98,15 +173,39 @@ const ModalCustomer = ({ type, visible, onCancel, ...rest }) => {
                             <AutoCompleteSubDistrict
                                 parentCode={districtCodeSelected}
                                 onSelect={onSelectSubDistrict}
+                                defaultValue={subDistrictSelected}
                             />
                         </FieldCustom>
                     </Col>
                     <Col span={12}>
-                        <FieldInput label="Mã số thuế" name="taxCode" />
-                        <FieldInput label="Email" name="email" />
-                        <FieldInput label="Công ty" name="company" />
-                        <FieldSelect label="Nhóm NCC" name="group" />
-                        <FieldInput label="Ghi chú" name="note" />
+                        <FieldInput
+                            label="Mã số thuế"
+                            name="taxCode"
+                            initialValue={
+                                type === 'update' ? supplierUpdated.taxCode : ''
+                            }
+                        />
+                        <FieldInput
+                            label="Email"
+                            name="email"
+                            initialValue={
+                                type === 'update' ? supplierUpdated.email : ''
+                            }
+                        />
+                        <FieldInput
+                            label="Công ty"
+                            name="company"
+                            initialValue={
+                                type === 'update' ? supplierUpdated.company : ''
+                            }
+                        />        
+                        <FieldInput
+                            label="Ghi chú"
+                            name="note"
+                            initialValue={
+                                type === 'update' ? supplierUpdated.note : ''
+                            }
+                        />
                     </Col>
                 </Row>
             </Form>
@@ -124,7 +223,13 @@ const ModalCustomer = ({ type, visible, onCancel, ...rest }) => {
     );
 };
 
-const BtnActiveModalCustomer = ({ text, iconClassName, type, ...rest }) => {
+const BtnActiveModalSupplier = ({
+    withContext,
+    text,
+    iconClassName,
+    type,
+    ...rest
+}) => {
     const [visible, setVisible] = useState(false);
 
     return (
@@ -142,13 +247,32 @@ const BtnActiveModalCustomer = ({ text, iconClassName, type, ...rest }) => {
                 onClick={() => setVisible(true)}
                 {...rest}
             />
-            <ModalCustomer
+            <ModalSupplier
                 type="add"
                 visible={visible}
                 onCancel={() => setVisible(false)}
+                withContext={withContext}
             />
         </>
     );
 };
 
-export default BtnActiveModalCustomer;
+BtnActiveModalSupplier.defaultProps = {
+    withContext: true,
+};
+
+BtnActiveModalSupplier.propTypes = {
+    withContext: PropTypes.bool,
+};
+
+ModalSupplier.defaultProps = {
+    supplierUpdated: {},
+};
+
+ModalSupplier.propTypes = {
+    supplierUpdated: PropTypes.object,
+};
+
+export { ModalSupplier };
+
+export default BtnActiveModalSupplier;

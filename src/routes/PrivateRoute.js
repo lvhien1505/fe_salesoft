@@ -28,10 +28,10 @@ const PrivateRoute = () => {
     if (loading) {
         return <Loading />;
     }
-    if (error && error.status && error.typeError === 'notConfirm') {
-        return <ScreenConfirmAccount />;
+    if (error && !error.status && error.typeError === 'notConfirm') {
+        return <ScreenConfirmAccount email={error.user.email}/>;
     }
-    if (error && error.status && error.typeError === 'notActive') {
+    if (error && !error.status && error.typeError === 'notActive') {
         return <div>Not active</div>;
     }
     if (error && !error.status) {

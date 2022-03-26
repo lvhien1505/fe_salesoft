@@ -1,10 +1,13 @@
+import { useContext } from 'react';
 import ScreenSelectProduct from 'components/common/ScreenSelectProduct';
 import ListProduct from './ListProduct';
-import data from 'apis/fakedata/products.json';
+import SaleContext from 'contexts/createContext/SaleContext';
 
 import '../styles/screenProduct.scss'
 
 const ScreenProduct = () => {
+    const {products} = useContext(SaleContext);
+
     const buttonProps = {
         style: {
             height: '39px',
@@ -15,7 +18,7 @@ const ScreenProduct = () => {
     return (
         <div className="sale-screen-product">
             <ScreenSelectProduct buttonProps={buttonProps}>
-                <ListProduct dataSource={data.products} />
+                <ListProduct dataSource={products} />
             </ScreenSelectProduct>
         </div>
     );

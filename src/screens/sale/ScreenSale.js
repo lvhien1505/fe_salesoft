@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import ScreenProduct from 'components/sale/screen-product';
 import Tabs from 'components/sale/tabs';
 import SaleState from 'contexts/SaleState';

@@ -7,14 +7,17 @@ const getCustomersWithLimit = async (page, limit) => {
     return data;
 };
 
-const create = async (data) => {
-    const res = await baseApi.create(baseRoute, data);
-    return res;
-};
+const create = async (data) => await baseApi.create(baseRoute, data);
+
+const update = async (id, data) => await baseApi.update(baseRoute,id, data);
+
+const searchName = async (name) => await baseApi.searchName(baseRoute, name);
 
 const customerApi = {
     getCustomersWithLimit,
     create,
+    update,
+    searchName
 };
 
 export default customerApi;

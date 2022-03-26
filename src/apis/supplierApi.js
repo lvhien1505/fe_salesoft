@@ -7,14 +7,14 @@ const getSuppliersWithLimit = async (page, limit) => {
     return data;
 };
 
-const create = async (data) => {
-    const res = await baseApi.create(baseRoute, data);
-    return res;
-};
+const create = async (data) => await baseApi.create(baseRoute, data);
+
+const update = async (id, data) => await baseApi.update(baseRoute, id, data);
 
 const supplierApi = {
     getSuppliersWithLimit,
     create,
+    update,
 };
 
 export default supplierApi;

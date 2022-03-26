@@ -17,14 +17,13 @@ export const colsProduct = [
         title: 'Nhóm hàng',
         dataIndex: 'category',
         key: 'category:3',
-        render: (value) => value.name
+        render: (value) => value.name,
     },
     {
         title: 'Loại hàng',
         dataIndex: 'type',
         key: 'type:4',
-        render: (value) =>
-            value === 'product' ? '' : 'Combo - Đóng gói',
+        render: (value) => (value === 'product' ? '' : 'Combo - Đóng gói'),
     },
     {
         title: 'Giá bán',
@@ -80,7 +79,7 @@ export const colsProduct = [
         title: 'Trạng thái',
         dataIndex: 'status',
         key: 'status:13',
-        render:(value)=> value === 'inactive' ? 'Ngừng bán' : ''
+        render: (value) => (value === 'inactive' ? 'Ngừng bán' : ''),
     },
 ];
 
@@ -102,21 +101,22 @@ export const colsPriceBook = [
         title: 'Tồn kho',
         dataIndex: 'inventory',
         key: 'inventory:3',
+        align:'center',
+        render: (value) => <TextPrice value={value} />,
     },
     {
         title: 'Giá vốn',
         dataIndex: 'costPrice',
         key: 'costPrice:4',
-    },
-    {
-        title: 'Giá nhập cuối',
-        dataIndex: 'priceLastPurchase',
-        key: 'priceLastPurchase:5',
+        align:'center',
+        render: (value) => <TextPrice value={value} />,
     },
     {
         title: 'Giá chung',
         dataIndex: 'price',
-        key: 'price:6',
+        key: 'price:5',
+        align:'center',
+        render: (value) => <TextPrice value={value} />,
     },
 ];
 
@@ -506,6 +506,17 @@ export const colsCustomer = [
         title: 'Điện thoại',
         dataIndex: 'phone',
         key: 'phone:4',
+        render: (values) => {
+            if (values[0]) {
+                return values[0];
+            } else {
+                if (values[1]) {
+                    return values[1];
+                } else {
+                    return '';
+                }
+            }
+        },
     },
     {
         title: 'Nhóm khách hàng',
@@ -606,6 +617,17 @@ export const colsSupplier = [
         title: 'Điện thoại',
         dataIndex: 'phone',
         key: 'phone:3',
+        render: (values) => {
+            if (values[0]) {
+                return values[0];
+            } else {
+                if (values[1]) {
+                    return values[1];
+                } else {
+                    return '';
+                }
+            }
+        },
     },
     {
         title: 'Nhóm NCC',
