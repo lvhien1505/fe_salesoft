@@ -4,8 +4,9 @@ import ListProduct from './ListProduct';
 import SaleCalculation from './SaleCalculation';
 import SaleContext from 'contexts/createContext/SaleContext';
 
-const Content = ({ nameBill, activeKey,onRemovePane }) => {
+const Content = ({ nameBill, activeKey, onRemovePane }) => {
     const state = useContext(SaleContext);
+    let isChange = state.isChange;
     const data = state.tabs.filter((tab) => tab.key === activeKey)[0];
     // declare totalPrice
     let totalPrice = data.products.reduce(
@@ -16,6 +17,7 @@ const Content = ({ nameBill, activeKey,onRemovePane }) => {
     if (isNaN(totalPrice)) {
         totalPrice = 0;
     }
+
     // declare valueSaleOff
     let valueSaleOff = data.valueSaleOff;
     if (isNaN(valueSaleOff)) {
@@ -47,12 +49,12 @@ const Content = ({ nameBill, activeKey,onRemovePane }) => {
         padding: '0.5rem 0 0 0.5rem',
         borderLeft: '1px solid #bfbfbf',
         overflowY: 'auto',
-        overflowX:'hidden'
+        overflowX: 'hidden',
     };
 
-    const onHandleRemovePane = ()=>{
-        onRemovePane(activeKey)
-    }
+    const onHandleRemovePane = () => {
+        onRemovePane(activeKey);
+    };
 
     return useMemo(() => {
         return (
@@ -75,7 +77,7 @@ const Content = ({ nameBill, activeKey,onRemovePane }) => {
                 </Col>
             </Row>
         );
-    }, [totalPrice, valueSaleOff, totalPaid]);
+    }, [totalPrice, valueSaleOff, totalPaid, isChange]);
 };
 
 export default Content;

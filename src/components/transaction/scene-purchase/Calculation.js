@@ -89,7 +89,6 @@ const Calculation = ({
         <Row gutter={[0, 16]}>
             <Field label="Ngày nhập">
                 <DatePicker
-                    defaultDate={'12-06-1998 12:07'}
                     dateFormat="dd/MM/yyyy HH:mm"
                     ref={dateRef}
                     showTime={true}
@@ -99,9 +98,6 @@ const Calculation = ({
             <Col span={24}>
                 <AutoCompleteSupplier />
             </Col>
-            <Field label="Trạng thái">
-                <span>Phiếu tạm</span>
-            </Field>
 
             <Field label="Tổng tiền hàng" suffixLabel={0}>
                 <span>
@@ -134,14 +130,14 @@ const Calculation = ({
             </Col>
             <Col span={24}>
                 <Row align="middle" gutter={[8, 8]}>
-                    <Col span={8}>
+                    <Col span={12}>
                         <ButtonCustom
-                            text="Lưu tạm"
+                            text="Hoàn thành & in"
                             style={styleBtn}
                             type={'secondary'}
                         />
                     </Col>
-                    <Col span={16}>
+                    <Col span={12}>
                         <ButtonCustom
                             text="Hoàn thành"
                             style={styleBtn}

@@ -64,7 +64,7 @@ const SaleCalculation = ({
     totalPaid,
     change,
     onRemovePane,
-    isRemovedPanel
+    isRemovedPanel,
 }) => {
     let dateRef = useRef();
     let inputTextareaRef = useRef();
@@ -75,7 +75,8 @@ const SaleCalculation = ({
     };
 
     const [idCustomer, setIdCustomer] = useState('');
-    const { changeValuePayment, createInvoice,resetTab } = useContext(SaleContext);
+    const { changeValuePayment, createInvoice, resetTab } =
+        useContext(SaleContext);
 
     const getOption = (option) => {
         setIdCustomer(option._id);
@@ -111,7 +112,7 @@ const SaleCalculation = ({
         createInvoice(invoice);
         if (isRemovedPanel) {
             onRemovePane();
-        }else{
+        } else {
             resetTab();
         }
     };
@@ -126,9 +127,7 @@ const SaleCalculation = ({
                     isCustom={true}
                 />
             </Field>
-            <Field label="Bảng giá">
-                <span>Bảng giá chung</span>
-            </Field>
+
             <Col span={24}>
                 <AutoCompleteCustomer getOption={getOption} />
             </Col>

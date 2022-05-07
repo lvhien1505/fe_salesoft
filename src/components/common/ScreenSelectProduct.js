@@ -2,7 +2,6 @@ import { useState } from 'react';
 import ResizePanel from 'react-resize-panel';
 import { Row, Col, Button, Space } from 'antd';
 import ButtonCustom from 'components/ui/button/Button';
-import ButtonModal from 'components/ui/button/ButtonModal';
 import Pagnigation from 'components/common/Pagnigation';
 import Icon from 'components/ui/icon/Icon';
 
@@ -67,25 +66,20 @@ const ScreenSelectProduct = ({ buttonProps, children }) => {
                         <Row justify="space-between">
                             <Col>
                                 <Space>
-                                    <ButtonModal
-                                        iconProps={{
-                                            className: 'ri-filter-line',
-                                        }}
-                                        buttonProps={{
-                                            type: 'primary',
-                                        }}
-                                        btnDefault={false}
+                                    <Button
+                                        icon={
+                                            <Icon className="ri-filter-line" />
+                                        }
+                                        type="primary"
                                     />
-                                    <ButtonModal
-                                        iconProps={{
-                                            className: 'ri-list-unordered',
-                                        }}
-                                        buttonProps={{
-                                            type: 'primary',
-                                        }}
-                                        btnDefault={false}
+                                    <Button
+                                        icon={
+                                            <Icon className="ri-list-unordered" />
+                                        }
+                                        type="primary"
                                     />
-                                    <Pagnigation />
+
+                                    {/* <Pagnigation /> */}
                                 </Space>
                             </Col>
                             <Col>

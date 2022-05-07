@@ -45,7 +45,9 @@ const InputNumProduct = ({ productID, value }) => {
             <InputNumber
                 style={{ textAlign: 'center' }}
                 value={value || 0}
-                onValueChange={(values) => onHandleChangeTotalNum('input', values.floatValue)}
+                onValueChange={(values) =>
+                    onHandleChangeTotalNum('input', values.floatValue)
+                }
             />
             <Button
                 icon={<Icon className="ri-arrow-up-s-line" />}
@@ -62,14 +64,14 @@ const PopoverPrice = ({
     priceSaleOff,
     priceAfterSaleOff,
 }) => {
-    const {changeValueSaleOffProduct} = useContext(ScenePurchaseContext);
+    const { changeValueSaleOffProduct } = useContext(ScenePurchaseContext);
 
     const onHandleChangeValueSaleOff = (valueInput) => {
         if (valueInput <= 0 || isNaN(valueInput)) {
-        	return changeValueSaleOffProduct(productID, 0);
+            return changeValueSaleOffProduct(productID, 0);
         }
         if (valueInput >= pricePreSaleOff) {
-        	return changeValueSaleOffProduct(productID, pricePreSaleOff);
+            return changeValueSaleOffProduct(productID, pricePreSaleOff);
         }
         return changeValueSaleOffProduct(productID, valueInput);
     };
@@ -114,7 +116,7 @@ const PopoverPrice = ({
             content={content}
             color={'#dee2e6'}
         >
-            <Button>
+            <Button type="text">
                 <TextPrice value={priceAfterSaleOff} />
             </Button>
         </Popover>
@@ -131,7 +133,7 @@ const Product = ({
     pricePreSaleOff,
     priceSaleOff,
     priceAfterSaleOff,
-    totalPrice
+    totalPrice,
 }) => {
     let productID = _id;
 

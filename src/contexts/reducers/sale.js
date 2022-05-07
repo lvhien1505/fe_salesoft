@@ -114,10 +114,12 @@ const saleReducer = (state, action) => {
             }
 
             state.tabs = tabs;
+            state.isChange = !state.isChange;
 
             return { ...state };
         case REMOVE_PRODUCT:
             tabs[tabIndex].products.splice(action.payload.productIndex, 1);
+            state.isChange = !state.isChange;
 
             return { ...state };
 
@@ -125,6 +127,7 @@ const saleReducer = (state, action) => {
             product = tabs[tabIndex].products[action.payload.productIndex];
             tabs[tabIndex].products[action.payload.productIndex] =
                 updateProduct('changeTotalNum', product, action.payload.value);
+            state.isChange = !state.isChange;
 
             return { ...state };
 
@@ -136,6 +139,7 @@ const saleReducer = (state, action) => {
                     product,
                     action.payload.value
                 );
+            
             return { ...state };
         case CHANGE_VALUE_SALEOFF:
             tabs[tabIndex].valueSaleOff = action.payload.value;

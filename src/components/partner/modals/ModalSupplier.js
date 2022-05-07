@@ -34,6 +34,7 @@ const ModalSupplier = ({
     supplierUpdated,
     visible,
     onCancel,
+    onFinishAdd,
     ...rest
 }) => {
     const { useForm } = Form;
@@ -52,9 +53,7 @@ const ModalSupplier = ({
         actionCreate = state.createSupplier;
         actionUpdate = state.updateSupplier;
     } else {
-        actionCreate = (values) => {
-            console.log(values);
-        };
+        actionCreate = onFinishAdd;
     }
     const [formSupplier] = useForm();
     const [citySelected, setCitySelected] = useState(
@@ -228,6 +227,7 @@ const BtnActiveModalSupplier = ({
     text,
     iconClassName,
     type,
+    onFinishAdd,
     ...rest
 }) => {
     const [visible, setVisible] = useState(false);
@@ -252,6 +252,7 @@ const BtnActiveModalSupplier = ({
                 visible={visible}
                 onCancel={() => setVisible(false)}
                 withContext={withContext}
+                onFinishAdd={onFinishAdd}
             />
         </>
     );

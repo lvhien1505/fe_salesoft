@@ -1,19 +1,22 @@
+import { useContext } from 'react';
 import ScreenSelectProduct from 'components/common/ScreenSelectProduct';
 import ListProduct from './ListProduct';
-import data from 'apis/fakedata/products.json';
+import ScenePurchaseContext from 'contexts/createContext/ScenePurchaseContext';
 
 const ScreenProduct = () => {
+    const { products } = useContext(ScenePurchaseContext);
+
     const buttonProps = {
         style: {
             height: '34px',
             borderRadius: '0.36rem',
-            width:'34px'
+            width: '34px',
         },
-        type:'secondary'
+        type: 'secondary',
     };
     return (
         <ScreenSelectProduct buttonProps={buttonProps}>
-            <ListProduct dataSource={data.productsStockTakes} />
+            <ListProduct dataSource={products} />
         </ScreenSelectProduct>
     );
 };

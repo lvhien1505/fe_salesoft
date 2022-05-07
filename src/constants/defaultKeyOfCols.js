@@ -36,13 +36,13 @@ export const keyOfColsStockTakes = [
 //invoices
 export const keyOfColsInvoices = [
     'code:1',
-    'time:2',
-    'codeReturns:5',
-    'nameCustomer:6',
-    'totalPrice:13',
-    'saleOff:14',
-    'totalPaid:16',
-    'status:18',
+    'dateSell:2',
+    'codeReturns:4',
+    'nameCustomer:5',
+    'totalPrice:12',
+    'saleOff:13',
+    'totalPaid:15',
+    'status:17',
 ];
 
 //end invoices
@@ -108,9 +108,9 @@ export const keyOfColsSupplier = [
 //cashbook
 export const keyOfColsCashBook = [
     'code:1',
-    'time:2',
-    'type:4',
-    'namePartner:6',
-    'totalAmount:9',
-    'status:11',
+    'datePayment:2',
+    'type:3',
+    'namePartner:5',
+    'price:8',
+    'status:9',
 ];

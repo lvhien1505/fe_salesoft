@@ -20,6 +20,7 @@ import invoiceApi from 'apis/invoiceApi';
 import openNotification from 'helpers/notification';
 
 const SaleState = ({ children }) => {
+
 	const initialState = {
 		tabs: [
 			{
@@ -31,6 +32,7 @@ const SaleState = ({ children }) => {
 		],
 		activeKey: '1',
 		products: [],
+		isChange:false,
 		typeTablePrice:'default',
 		tablePrices:[],
 		productsOther:[]
@@ -113,6 +115,7 @@ const SaleState = ({ children }) => {
 	return (
 		<SaleContext.Provider
 			value={{
+				isChange:state.isChange,
 				products:state.products,
 				tabs: state.tabs,
 				activeKey: state.activeKey,

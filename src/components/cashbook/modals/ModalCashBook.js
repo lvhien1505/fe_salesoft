@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useContext } from 'react';
 import { Row, Col, Form, Modal, Space } from 'antd';
 import {
     FieldInput,
@@ -12,6 +12,8 @@ import DatePicker from 'components/common/DatePicker';
 import AutoCompleteCustomer from 'components/auto-complete/AutoCompleteCustomer';
 import AutoCompleteSupplier from 'components/auto-complete/AutoCompleteSupplier';
 import ModalTarget from './ModalTarget';
+import openNotification from 'helpers/notification';
+import CashFlowContext from 'contexts/createContext/CashFlowContext';
 
 const FieldCustom = ({ label, name, children }) => {
     const { Item } = Form;
@@ -28,7 +30,9 @@ const FieldCustom = ({ label, name, children }) => {
 };
 
 const ModalCashBook = ({ typeAction, visible, onCancel, ...rest }) => {
-    const { useForm, Item } = Form;
+    const { createCashFlow } = useContext(CashFlowContext);
+
+    const { useForm } = Form;
     let dateRef = useRef();
     const [form] = useForm();
     const [methodPayment, setMethodPayment] = useState('money');
@@ -46,6 +50,10 @@ const ModalCashBook = ({ typeAction, visible, onCancel, ...rest }) => {
         { label: 'Khác', value: 'other' },
     ];
 
+    const getOption = (option) => {
+        setTargetSelected({ _id: option._id });
+    };
+
     const onChangeMethodPayment = (e) => {
         setMethodPayment(e.target.value);
     };
@@ -62,8 +70,52 @@ const ModalCashBook = ({ typeAction, visible, onCancel, ...rest }) => {
         form.submit();
     };
 
+    const convertFromStringToNumber = (value) => {
+        if (typeof value === 'number') {
+            return value;
+        }
+
+        value = value.split(',').join('');
+        value = parseInt(value);
+        return value;
+    };
+
     const onFinishForm = (values) => {
-        console.log(values);
+        values.price = values.value;
+        if (!values.price) {
+            return openNotification('error', 'Bạn chưa nhập giá trị');
+        }
+        if (!values.methodPayment) {
+            values.methodPayment = 'money';
+        }
+        values.typeTarget = target.value;
+        if (!values.typeTarget) {
+            return openNotification('error', 'Bạn chưa chọn đối tượng');
+        }
+        values.datePayment = dateRef.current.input.value;
+        values.datePayment = values.datePayment.split('/').join('-');
+        values.price = convertFromStringToNumber(values.price);
+        if (values.price < 0) {
+            return openNotification('error', 'Giá trị không hợp lệ !');
+        }
+        if (
+            values.typeTarget === 'customer' ||
+            values.typeTarget === 'supplier'
+        ) {
+            if (!targetSelected._id) {
+                return openNotification('error', 'Bạn chưa chọn đối tượng');
+            }
+            values.idTarget = targetSelected._id;
+        } else {
+            if (!targetSelected.name) {
+                return openNotification('error', 'Bạn chưa chọn đối tượng');
+            }
+            values.target = targetSelected;
+        }
+        values.type = typeAction;
+        createCashFlow(values);
+
+        onCancel();
     };
 
     return (
@@ -85,7 +137,7 @@ const ModalCashBook = ({ typeAction, visible, onCancel, ...rest }) => {
                 <Row justify="space-between" gutter={[24, 8]}>
                     <Col span={12}>
                         <FieldRadio
-                            initialValue={methodPayment}
+                            initialValue={'money'}
                             label="Phương thức TT"
                             name="methodPayment"
                             data={dataMethodPayment}
@@ -110,12 +162,6 @@ const ModalCashBook = ({ typeAction, visible, onCancel, ...rest }) => {
                             />
                         </FieldCustom>
 
-                        <FieldInput
-                            label={
-                                'Loại' + (typeAction === 'in' ? ' thu' : ' chi')
-                            }
-                            name="address"
-                        />
                         <FieldInputNumber
                             label="Giá trị"
                             name="value"
@@ -143,6 +189,7 @@ const ModalCashBook = ({ typeAction, visible, onCancel, ...rest }) => {
                                 <AutoCompleteCustomer
                                     placeholder={'Tìm khách hàng'}
                                     isSuffix={false}
+                                    getOption={getOption}
                                 />
                             </FieldCustom>
                         ) : null}

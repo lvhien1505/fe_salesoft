@@ -8,21 +8,6 @@ import Select from 'components/ui/select/Select';
 import { InputString } from 'components/ui/input/Input';
 import Record from 'components/common/manage/Record';
 
-const FilterTypeInAndOut = () => {
-    return (
-        <CardFilter
-            title="Loại thu chi"
-            suffix={<Icon className="ri-add-circle-line" />}
-        >
-            <Select
-                mode="multiple"
-                style={{ width: '100%' }}
-                placeholder="Chọn loại thu chi"
-            />
-        </CardFilter>
-    );
-};
-
 const FilterPartner = () => {
     const options = [
         { label: 'Tất cả', value: 'all' },
@@ -56,7 +41,6 @@ const Filter = () => {
     const dataOverview = [
         { label: 'Tiền mặt', value: 'money' },
         { label: 'Ngân hàng', value: 'bank' },
-        { label: 'Tổng quỹ', value: 'all' },
     ];
 
     const dataTypeReceipt = [
@@ -92,9 +76,7 @@ const Filter = () => {
                     />
                 </CardFilter>
             </Col>
-            <Col span={24}>
-                <FilterTypeInAndOut />
-            </Col>
+
             <Col span={24}>
                 <CardFilter title="Trạng thái">
                     <GroupCheckbox data={dataStatus} defaultValue={['done']} />

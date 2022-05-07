@@ -1,12 +1,13 @@
 import { useContext } from 'react';
+import { Row, Col } from 'antd';
 import ScreenSelectProduct from 'components/common/ScreenSelectProduct';
 import ListProduct from './ListProduct';
 import SaleContext from 'contexts/createContext/SaleContext';
 
-import '../styles/screenProduct.scss'
+import '../styles/screenProduct.scss';
 
 const ScreenProduct = () => {
-    const {products} = useContext(SaleContext);
+    const { products } = useContext(SaleContext);
 
     const buttonProps = {
         style: {
@@ -18,7 +19,11 @@ const ScreenProduct = () => {
     return (
         <div className="sale-screen-product">
             <ScreenSelectProduct buttonProps={buttonProps}>
-                <ListProduct dataSource={products} />
+                <Col span={24}>
+                    <Row>
+                        <ListProduct dataSource={products} />
+                    </Row>
+                </Col>
             </ScreenSelectProduct>
         </div>
     );

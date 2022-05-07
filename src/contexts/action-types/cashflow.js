@@ -1,0 +1,2 @@
+export const GET_CASHFLOWS = 'GET_CASHFLOWS';
+export const SELECT_CASHFLOW = 'SELECT_CASHFLOW';

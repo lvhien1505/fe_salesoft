@@ -9,10 +9,10 @@ import ScenePurchaseContext from 'contexts/createContext/ScenePurchaseContext';
 import '../styles/scenePurchase.scss';
 
 const Content = () => {
-    const { products, valueSaleOff, totalPaid } =
+    const { productsSelected, valueSaleOff, totalPaid } =
         useContext(ScenePurchaseContext);
     // declare totalPrice
-    let totalPrice = products.reduce(
+    let totalPrice = productsSelected.reduce(
         (pre, current) => pre + current.totalPrice,
         0
     );
@@ -63,7 +63,7 @@ const Content = () => {
                 </Row>
                 <Row style={{ marginTop: '0.5rem' }}>
                     <Col span={24}>
-                        <ListProduct dataSource={products} />
+                        <ListProduct dataSource={productsSelected} />
                     </Col>
                 </Row>
             </Col>

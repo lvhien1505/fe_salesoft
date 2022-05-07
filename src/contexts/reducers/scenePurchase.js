@@ -5,7 +5,8 @@ import {
     CHANGE_TOTAL_NUM,
     CHANGE_VALUE_SALEOFF_PRODUCT,
     CHANGE_VALUE_SALEOFF,
-    CHANGE_VALUE_PAYMENT
+    CHANGE_VALUE_PAYMENT,
+    GET_PRODUCTS,
 } from 'contexts/action-types/scenePurchase';
 
 const findIndexItem = (arr, key, value) => {
@@ -65,39 +66,42 @@ const addProduct = (listProduct, product) => {
 const scenePurchaseReducer = (state, action) => {
     let indexProduct = null;
     switch (action.type) {
+        case GET_PRODUCTS:
+            state.products = action.payload.products;
+            return { ...state };
         case ADD_PRODUCT:
-            addProduct(state.products, action.payload.product);
+            addProduct(state.productsSelected, action.payload.product);
             return { ...state };
         case REMOVE_PRODUCT:
             indexProduct = findIndexItem(
-                state.products,
+                state.productsSelected,
                 '_id',
                 action.payload.productID
             );
-            state.products.splice(indexProduct, 1);
+            state.productsSelected.splice(indexProduct, 1);
             return { ...state };
         case CHANGE_TOTAL_NUM:
             indexProduct = findIndexItem(
-                state.products,
+                state.productsSelected,
                 '_id',
                 action.payload.productID
             );
-            state.products[indexProduct] = updateProduct(
+            state.productsSelected[indexProduct] = updateProduct(
                 'changeTotalNum',
-                state.products[indexProduct],
+                state.productsSelected[indexProduct],
                 action.payload.value
             );
 
             return { ...state };
         case CHANGE_VALUE_SALEOFF_PRODUCT:
             indexProduct = findIndexItem(
-                state.products,
+                state.productsSelected,
                 '_id',
                 action.payload.productID
             );
-            state.products[indexProduct] = updateProduct(
+            state.productsSelected[indexProduct] = updateProduct(
                 'changeValueSaleOff',
-                state.products[indexProduct],
+                state.productsSelected[indexProduct],
                 action.payload.value
             );
             return { ...state };

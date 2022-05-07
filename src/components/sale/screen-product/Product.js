@@ -5,38 +5,40 @@ import SaleContext from 'contexts/createContext/SaleContext';
 import TextPrice from 'components/common/TextPrice';
 
 const Product = ({ _id, srcImg, name, price }) => {
-	const state = useContext(SaleContext);
-	const { addProduct } = state;
+    const { addProduct } = useContext(SaleContext);
 
-	return (
-		<Col className="product" onClick={() => addProduct({ _id,name, price })}>
-			<Row>
-				<Col>
-					<Image preview={false} width={'4rem'} src={srcImg} />
-				</Col>
-				<Col>
-					<div className="product__info">
-						<span>{name}</span>
-						<span>
-							<TextPrice value={price} />
-						</span>
-					</div>
-				</Col>
-			</Row>
-		</Col>
-	);
+    return (
+        <Col
+            className="product"
+            onClick={() => addProduct({ _id, name, price })}
+        >
+            <Row>
+                <Col>
+                    <Image preview={false} width={'4rem'} src={srcImg} />
+                </Col>
+                <Col>
+                    <div className="product__info">
+                        <span>{name}</span>
+                        <span>
+                            <TextPrice value={price} />
+                        </span>
+                    </div>
+                </Col>
+            </Row>
+        </Col>
+    );
 };
 
 Product.defaultProps = {
-	srcImg: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-	name: '',
-	price: 0,
+    srcImg: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+    name: '',
+    price: 0,
 };
 
 Product.propTypes = {
-	srcImg: PropTypes.string,
-	name: PropTypes.string,
-	price: PropTypes.number,
+    srcImg: PropTypes.string,
+    name: PropTypes.string,
+    price: PropTypes.number,
 };
 
 export default Product;

@@ -142,11 +142,6 @@ const ModalTarget = ({
                                 defaultValue={subDistrictSelected}
                             />
                         </FieldCustom>
-                        <FieldInput
-                            label="Ghi chú"
-                            name="note"
-                            initialValue={isUpdate ? targetUpdated.note : ''}
-                        />
                     </Col>
                 </Row>
                 <Row justify="end" style={{ marginTop: '1rem' }}>

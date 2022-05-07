@@ -4,7 +4,8 @@ import {
 	CHANGE_TOTAL_NUM,
 	CHANGE_VALUE_SALEOFF_PRODUCT,
 	CHANGE_VALUE_SALEOFF,
-	CHANGE_VALUE_PAYMENT
+	CHANGE_VALUE_PAYMENT,
+	GET_PRODUCTS
 } from 'contexts/action-types/scenePurchase';
 
 export const addProduct = (product) => {
@@ -62,3 +63,12 @@ export const changeValuePayment = (value) => {
 		},
 	};
 };
+
+export const getProducts = (products)=>{
+	return {
+		type:GET_PRODUCTS,
+		payload:{
+			products:products
+		}
+	}
+}

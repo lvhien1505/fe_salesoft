@@ -101,21 +101,21 @@ export const colsPriceBook = [
         title: 'Tồn kho',
         dataIndex: 'inventory',
         key: 'inventory:3',
-        align:'center',
+        align: 'center',
         render: (value) => <TextPrice value={value} />,
     },
     {
         title: 'Giá vốn',
         dataIndex: 'costPrice',
         key: 'costPrice:4',
-        align:'center',
+        align: 'center',
         render: (value) => <TextPrice value={value} />,
     },
     {
         title: 'Giá chung',
         dataIndex: 'price',
         key: 'price:5',
-        align:'center',
+        align: 'center',
         render: (value) => <TextPrice value={value} />,
     },
 ];
@@ -201,89 +201,103 @@ export const colsInvoices = [
         key: 'code:1',
     },
     {
-        title: 'Thời gian',
-        dataIndex: 'time',
-        key: 'time:2',
-    },
-    {
         title: 'Ngày bán',
         dataIndex: 'dateSell',
-        key: 'dateSell:3',
+        key: 'dateSell:2',
     },
     {
         title: 'Ngày cập nhật',
         dataIndex: 'dateUpdated',
-        key: 'dateUpdated:4',
+        key: 'dateUpdated:3',
     },
     {
         title: 'Mã trả hàng',
         dataIndex: 'codeReturns',
-        key: 'codeReturns:5',
+        key: 'codeReturns:4',
     },
     {
         title: 'Khách hàng',
-        dataIndex: 'nameCustomer',
-        key: 'nameCustomer:6',
+        dataIndex: ['customer', 'name'],
+        key: 'nameCustomer:5',
     },
     {
         title: 'Email',
-        dataIndex: 'email',
-        key: 'email:7',
+        dataIndex: ['customer', 'email'],
+        key: 'email:6',
     },
     {
         title: 'Điện thoại',
-        dataIndex: 'phone',
-        key: 'phone:8',
+        dataIndex: ['customer', 'phone'],
+        key: 'phone:7',
+        render: (values) => {
+            if (values[0]) {
+                return values[0];
+            } else {
+                if (values[1]) {
+                    return values[1];
+                } else {
+                    return '';
+                }
+            }
+        },
     },
     {
         title: 'Địa chỉ',
-        dataIndex: 'address',
-        key: 'address:9',
+        dataIndex: ['customer', 'address'],
+        key: 'address:8',
     },
     {
         title: 'Khu vực',
-        dataIndex: 'district',
-        key: 'district:10',
+        dataIndex: ['customer', 'district'],
+        key: 'district:9',
     },
     {
         title: 'Phường, xã',
-        dataIndex: 'subDistrict',
-        key: 'subDistrict:11',
+        dataIndex: ['customer', 'subDistrict'],
+        key: 'subDistrict:10',
     },
     {
         title: 'Ngày sinh',
-        dataIndex: 'birthday',
-        key: 'birthday:12',
+        dataIndex: ['customer', 'birthday'],
+        key: 'birthday:11',
     },
     {
         title: 'Tổng tiền hàng',
         dataIndex: 'totalPrice',
-        key: 'totalPrice:13',
+        key: 'totalPrice:12',
+        align: 'center',
+        render: (value) => <TextPrice value={value} />,
     },
     {
         title: 'Giảm giá',
         dataIndex: 'saleOff',
-        key: 'saleOff:14',
+        key: 'saleOff:13',
+        align: 'center',
+        render: (value) => <TextPrice value={value} />,
     },
     {
         title: 'Khách cần trả',
         dataIndex: 'totalPayment',
-        key: 'totalPayment:15',
+        key: 'totalPayment:14',
+        align: 'center',
+        render: (value) => <TextPrice value={value} />,
     },
     {
         title: 'Khách đã trả',
         dataIndex: 'totalPaid',
-        key: 'totalPaid:16',
+        key: 'totalPaid:15',
+        align: 'center',
+        render: (value) => <TextPrice value={value} />,
     },
     {
         title: 'Ghi chú',
         dataIndex: 'note',
-        key: 'note:17',
+        key: 'note:16',
     },
     {
         title: 'Trạng thái',
         dataIndex: 'status',
-        key: 'status:18',
+        key: 'status:17',
     },
 ];
 
@@ -700,54 +714,62 @@ export const colsCashBook = [
         key: 'code:1',
     },
     {
-        title: 'Thời gian',
-        dataIndex: 'name',
-        key: 'name:2',
-    },
-    {
         title: 'Ngày thu/chi',
-        dataIndex: 'dateCreated',
-        key: 'dateCreated:3',
+        dataIndex: 'datePayment',
+        key: 'datePayment:2',
     },
     {
-        title: 'Loại thu chi',
+        title: 'Loại phiếu',
         dataIndex: 'type',
-        key: 'type:4',
+        key: 'type:3',
+        render:(value)=> value === 'in' ? 'Thu' : 'Chi',
+        align:'center'
     },
     {
         title: 'Mã người nộp/nhận',
         dataIndex: 'codePartner',
-        key: 'codePartner:5',
+        key: 'codePartner:4',
     },
     {
         title: 'Người nộp/nhận',
-        dataIndex: 'namePartner',
-        key: 'namePartner:6',
+        dataIndex: ['target','name'],
+        key: 'namePartner:5',
     },
     {
         title: 'Số điện thoại',
-        dataIndex: 'phone',
-        key: 'phone:7',
+        dataIndex: ['target','phone'],
+        key: 'phone:6',
+        render: (values) => {
+            if(!values) return '';
+            if(typeof values === 'string') return values;
+            if (values[0]) {
+                return values[0];
+            } else {
+                if (values[1]) {
+                    return values[1];
+                } else {
+                    return '';
+                }
+            }
+        },
     },
     {
         title: 'Địa chỉ',
-        dataIndex: 'address',
-        key: 'address:8',
+        dataIndex: ['target','address'],
+        key: 'address:7',
     },
     {
         title: 'Giá trị',
-        dataIndex: 'totalAmount',
-        key: 'totalAmount:9',
-    },
-    {
-        title: 'Ghi chú',
-        dataIndex: 'note',
-        key: 'note:10',
+        dataIndex: 'price',
+        key: 'price:8',
+        render:(value)=><TextPrice value={value}/>,
+        align:'center'
     },
     {
         title: 'Trạng thái',
         dataIndex: 'status',
-        key: 'status:11',
+        key: 'status:9',
+        align:'end'
     },
 ];
 
